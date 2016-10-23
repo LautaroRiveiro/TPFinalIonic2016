@@ -32,42 +32,63 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     controller: 'AppCtrl'
   })
 
-  .state('app.search', {
-    url: '/search',
+  .state('app.perfil', {
+    url: '/perfil',
     views: {
       'menuContent': {
-        templateUrl: 'templates/search.html'
+        templateUrl: 'templates/perfil.html'
       }
     }
   })
 
-  .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
-        }
+  .state('app.batallanaval', {
+    url: '/batallanaval',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/batallanaval.html',
+        controller: 'BatallaNavalCtrl'
       }
-    })
-    .state('app.playlists', {
-      url: '/playlists',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
-        }
+    }
+  })
+
+  .state('app.desafios', {
+    url: '/desafios',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/desafios.html',
+        controller: 'DesafiosCtrl'
       }
-    })
+    }
+  })
 
   .state('app.single', {
-    url: '/playlists/:playlistId',
+    url: '/partida/:playlistId',
     views: {
       'menuContent': {
         templateUrl: 'templates/playlist.html',
         controller: 'PlaylistCtrl'
       }
     }
-  });
+  })
+
+  .state('app.sobremi', {
+      url: '/sobremi',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/sobremi.html'
+        }
+      }
+    })
+
+  .state('app.generar', {
+      url: '/generar',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/generarcreditos.html'
+        }
+      }
+    });
+
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/perfil');
 });

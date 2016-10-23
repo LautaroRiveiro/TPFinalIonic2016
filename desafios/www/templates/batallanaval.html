@@ -1,0 +1,14 @@
+<ion-view view-title="Batalla Naval">
+  <ion-content>
+  	<div class="item item-balanced item-icon-left item-icon-right">
+		<i class="icon ion-trophy"></i>
+		Crear partida
+		<i class="icon ion-plus-round"></i>
+	</div>
+    <ion-list>
+      <ion-item ng-repeat="playlist in playlists" href="#/app/partida/{{playlist.id}}">
+        {{playlist.title}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

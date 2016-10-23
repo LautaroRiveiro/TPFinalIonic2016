@@ -1,0 +1,26 @@
+<ion-view view-title="Perfil">
+  <ion-content>
+		<div class="list card">
+			<div class="item item-avatar">
+				<img src="img/lautaro.jpg">
+				<h2>{usuario.nombre}</h2>
+				<p>Usuario desde: {usuario.registro}</p>
+			</div>
+
+			<div class="item item-body">
+				<h2>Créditos: {usuario.creditos}</h2>
+				<button class="button button-balanced">
+				  Cargar crédito
+				</button>
+			</div>
+			
+			<div class="item item-body">
+				<button class="button button-assertive">
+				  <i class="ion-power"></i>&nbsp;Salir
+				</button>
+			</div>
+		</div>
+
+		<ion-checkbox ng-model="usuario.token">Mostrar token</ion-checkbox>
+  </ion-content>
+</ion-view>
