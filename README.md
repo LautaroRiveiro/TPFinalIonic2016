@@ -1,2 +1,7 @@
 # TPFinalIonic2016
-juego online, Generador de desafíos / batalla naval
+Juego online: Generador de desafíos / Batalla naval
+
+[-] Login con GitHub
+[-] Cargar créditos
+[-] Batalla naval
+[-] Generar desafíos
