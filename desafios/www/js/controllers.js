@@ -41,6 +41,9 @@ angular.module('starter.controllers', [])
   };
 })
 
+.controller('PerfilCtrl', function($scope, $stateParams) {
+})
+
 .controller('BatallaNavalCtrl', function($scope) {
   $scope.playlists = [
     { title: 'Reggae', id: 1 },
@@ -63,5 +66,51 @@ angular.module('starter.controllers', [])
   ];
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.controller('GenerarCtrl', function($scope, $stateParams) {
+    
+    //Apunto a la tabla Créditos de Firebase
+    var refCreditos = new Firebase("https://tpfinalionic2016.firebaseio.com/creditos");
+
+    //Creo las variables necesarias
+    $scope.cantidad = 0;
+    $scope.importeTotal = 0;
+    $scope.credito = {};
+
+    //Recupero todos los créditos
+    refCreditos.on('child_added', function(data){
+      console.info(data.val());
+      var creditoFB = data.val();
+      if(creditoFB.estado == "sinUsar")
+      {
+        $scope.cantidad ++;
+        $scope.importeTotal += creditoFB.importe;
+      }
+    })
+
+    //A la escucha de utilizar créditos
+    refCreditos.on('child_changed', function(data){
+      console.info("Cambio: ", data.val());
+      var creditoFB = data.val();
+      if(creditoFB.estado == "usado")
+      {
+        $scope.cantidad --;
+        $scope.importeTotal -= creditoFB.importe;
+        console.info("Importe: ", $scope.importeTotal, "Cantidad:", $scope.cantidad);
+        //NOTA: No me actualiza los datos en el model HTML.
+      }
+    })
+
+    $scope.GenerarCredito = function(){
+      if($scope.credito.importe > 0 && $scope.credito.importe === parseInt($scope.credito.importe, 10)){
+        $scope.credito.usuario = "Lautaro";
+        $scope.credito.estado = "sinUsar";
+        $scope.credito.fecha = Firebase.ServerValue.TIMESTAMP;
+        console.info($scope.credito);
+        refCreditos.push($scope.credito);
+        $scope.credito.importe = "";
+      }
+      else{
+        console.log("Valor ingresado no válido");
+      }
+    }
 });

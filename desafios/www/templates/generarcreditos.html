@@ -8,10 +8,10 @@
 	  </div>
 
 	  <p class="item">
-	    Cantidad: {cantidad}
+	    Cantidad: {{cantidad}}
 	  </p>
 	  <p class="item">
-	    Importe total: {cantidad}
+	    Importe total: {{importeTotal}}
 	  </p>
 	
 	  <div class="item item-divider">
@@ -21,9 +21,9 @@
 	  <div class="list">
 		<div class="item item-input-inset">
 		  <label class="item-input-wrapper">
-		    <input type="number" placeholder="Importe">
+		    <input type="number" placeholder="Importe" ng-model="credito.importe">
 		  </label>
-		  <button class="button button-small"> ENVIAR </button>
+		  <button class="button button-small button-positive" ng-click="GenerarCredito()"> ENVIAR </button>
 		</div>
 	  </div>
 

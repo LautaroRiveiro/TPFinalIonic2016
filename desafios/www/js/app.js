@@ -84,7 +84,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       url: '/generar',
       views: {
         'menuContent': {
-          templateUrl: 'templates/generarcreditos.html'
+          templateUrl: 'templates/generarcreditos.html',
+          controller: 'GenerarCtrl'
         }
       }
     });
