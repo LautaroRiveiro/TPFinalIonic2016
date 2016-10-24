@@ -1,15 +1,73 @@
 <ion-view view-title="Desafíos">
   <ion-content>
-	<div class="item item-balanced item-icon-left item-icon-right">
-		<i class="icon ion-trophy"></i>
-		Crear desafío
-		<i class="icon ion-plus-round" style="text-align: center;"></i>
-	</div>
 
-    <ion-list>
-      <ion-item ng-repeat="playlist in playlists" href="#/app/partida/{{playlist.id}}">
-        {{playlist.title}}
+    <!-- INICIO -->
+
+    <div class="item item-balanced item-icon-left item-icon-right" ng-click="bandera.estado = 'crearDesafio';" ng-show="bandera.estado == 'inicio'">
+      <i class="icon ion-trophy"></i>
+      Crear desafío
+      <i class="icon ion-plus-round"></i>
+    </div>
+    
+    <ion-list ng-show="bandera.estado == 'inicio'">
+      <ion-item ng-repeat="desafio in desafios" ng-click="AmpliarDesafio(desafio.key)">
+        "{{desafio.texto}}" ({{desafio.monto}} créditos)
       </ion-item>
     </ion-list>
+
+    <!-- CREAR DESAFÍO -->
+
+    <div ng-show="bandera.estado == 'crearDesafio'">
+      <div class="item item-divider" style="text-align: center;">
+        Escribir desafío
+      </div>
+      
+      <input type="text" placeholder="escribir acá" ng-model="desafio.texto">
+
+      <div class="item item-divider" style="text-align: center;">
+        Elegir monto a apostar
+      </div>
+      <div class="item range">
+        <i class="icon ion-minus-round"></i>
+        <input type="range" name="monto" ng-model="desafio.monto" min="0" max="100">
+        <i class="icon ion-plus-round"></i>
+      </div>
+      <div class="item">
+        Apuesta: {{desafio.monto}} créditos
+      </div>
+
+      <div class="item item-divider" style="text-align: center;">
+        Confirmar desafío
+      </div>
+      <div class="button-bar">
+        <a class="button button-assertive" ng-click="Cancelar()"><i class="icon ion-close-round"></i></a>
+        <a class="button button-balanced" ng-click="Guardar()"><i class="icon ion-checkmark-round"></i></a>
+      </div>
+
+      <pre>{{desafio | json}}</pre>
+    </div>
+
+    <!-- ACEPTAR DESAFÍO -->
+
+    <div ng-show="bandera.estado == 'desafio'">
+      <div class="item item-divider" style="text-align: center;">
+        Detalles
+      </div>
+      <div class="item">
+        <p>Usuario: {nombre}</p>
+        <p>Fecha: {fecha}</p>
+        <p>Monto: {monto}</p>
+        <p>Texto: {texto}</p>
+      </div>
+
+      <div class="item item-divider" style="text-align: center;">
+        Aceptar desafío
+      </div>
+      <div class="button-bar">
+        <a class="button button-assertive" ng-click="Volver()"><i class="icon ion-close-round"></i></a>
+        <a class="button button-balanced" ng-click="Aceptar()"><i class="icon ion-checkmark-round"></i></a>
+      </div>
+    </div>
+
   </ion-content>
 </ion-view>
