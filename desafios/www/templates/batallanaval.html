@@ -1,14 +1,89 @@
 <ion-view view-title="Batalla Naval">
   <ion-content>
-  	<div class="item item-balanced item-icon-left item-icon-right">
-		<i class="icon ion-trophy"></i>
-		Crear partida
-		<i class="icon ion-plus-round"></i>
-	</div>
-    <ion-list>
-      <ion-item ng-repeat="playlist in playlists" href="#/app/partida/{{playlist.id}}">
-        {{playlist.title}}
+  	<div class="item item-balanced item-icon-left item-icon-right" ng-click="bandera.estado = 'crearPartida';" ng-show="bandera.estado == 'inicio'">
+  		<i class="icon ion-trophy"></i>
+  		Crear partida
+  		<i class="icon ion-plus-round"></i>
+	  </div>
+    
+    <ion-list ng-show="bandera.estado == 'inicio'">
+      <ion-item ng-repeat="desafio in partidas" ng-click="AmpliarDesafio(desafio.key)">
+        {{desafio.creador}} apuesta {{desafio.monto}} créditos
       </ion-item>
     </ion-list>
+    
+    <div ng-show="bandera.estado == 'crearPartida'">
+      <div class="item item-divider" style="text-align: center;">
+        Elegir ubicación del crédito
+      </div>
+      <div class="row" style="width:50%; text-align: center; margin: auto;">
+        <div class="col">
+          <input type="radio" class="button button-assertive" name="ubicacion" ng-model="partida.ubicacionCreador" value="1">
+        </div>
+        <div class="col">
+          <input type="radio" class="button button-assertive" name="ubicacion" ng-model="partida.ubicacionCreador" value="2">
+        </div>
+      </div>
+      <div class="row" style="width:50%; text-align: center; margin: auto;">
+        <div class="col">
+          <input type="radio" class="button button-assertive" name="ubicacion" ng-model="partida.ubicacionCreador" value="3">
+        </div>
+        <div class="col">
+          <input type="radio" class="button button-assertive" name="ubicacion" ng-model="partida.ubicacionCreador" value="4">
+        </div>
+      </div>
+
+      <div class="item item-divider" style="text-align: center;">
+        Elegir monto de la partida
+      </div>
+      <div class="item range">
+        <i class="icon ion-minus-round"></i>
+        <input type="range" name="monto" ng-model="partida.monto" min="0" max="100">
+        <i class="icon ion-plus-round"></i>
+      </div>
+      <div class="item">
+        Apuesta: {{partida.monto}} créditos
+      </div>
+
+      <div class="item item-divider" style="text-align: center;">
+        Confirmar partida
+      </div>
+      <div class="button-bar">
+        <a class="button button-assertive" ng-click="Cancelar()"><i class="icon ion-close-round"></i></a>
+        <a class="button button-balanced" ng-click="Guardar()"><i class="icon ion-checkmark-round"></i></a>
+      </div>
+
+      <pre>{{partida | json}}</pre>
+    </div>
+    
+    <div ng-show="bandera.estado == 'partida'">
+      <div class="item item-divider" style="text-align: center;">
+        Elegir ubicación del crédito
+      </div>
+      <div class="row" style="width:50%; text-align: center; margin: auto;">
+        <div class="col">
+          <input type="radio" class="button button-assertive" name="ubicacionDesafiante" ng-model="partida.ubicacionDesafiante" value="1">
+        </div>
+        <div class="col">
+          <input type="radio" class="button button-assertive" name="ubicacionDesafiante" ng-model="partida.ubicacionDesafiante" value="2">
+        </div>
+      </div>
+      <div class="row" style="width:50%; text-align: center; margin: auto;">
+        <div class="col">
+          <input type="radio" class="button button-assertive" name="ubicacionDesafiante" ng-model="partida.ubicacionDesafiante" value="3">
+        </div>
+        <div class="col">
+          <input type="radio" class="button button-assertive" name="ubicacionDesafiante" ng-model="partida.ubicacionDesafiante" value="4">
+        </div>
+      </div>
+      <div class="item item-divider" style="text-align: center;">
+        Aceptar partida
+      </div>
+      <div class="button-bar">
+        <a class="button button-assertive" ng-click="Volver()"><i class="icon ion-close-round"></i></a>
+        <a class="button button-balanced" ng-click="Aceptar()"><i class="icon ion-checkmark-round"></i></a>
+      </div>
+    </div>
+
   </ion-content>
 </ion-view>
