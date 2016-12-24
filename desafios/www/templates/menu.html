@@ -1,6 +1,6 @@
 <ion-side-menus enable-menu-with-back-views="false">
   <ion-side-menu-content>
-    <ion-nav-bar class="bar-stable">
+    <ion-nav-bar class="bar-stable menubarra">
       <ion-nav-back-button>
       </ion-nav-back-button>
 
@@ -13,27 +13,45 @@
   </ion-side-menu-content>
 
   <ion-side-menu side="right">
-    <ion-header-bar class="bar-stable">
-      <h1 class="title">Menú</h1>
+    <ion-header-bar class="bar-stable" style="background-color: #33577c;">
+      <h1 class="title" style="color: #e2d3b6;">Menú</h1>
     </ion-header-bar>
-    <ion-content>
+    <ion-content style="background: url(img/backgound-menu.png)  no-repeat center bottom fixed; background-color: #e2d3b6">
       <ion-list>
         <ion-item menu-close href="#/app/perfil">
-          Perfil
+          <i class="ion-android-person"></i>&nbsp; Perfil
         </ion-item>
         <ion-item menu-close href="#/app/batallanaval">
-          Batalla Naval
+          <i class="ion-android-boat"></i>&nbsp; Batalla Naval
         </ion-item>
         <ion-item menu-close href="#/app/desafios">
-          Desafíos
+          <i class="ion-android-chat"></i>&nbsp; Desafíos
         </ion-item>
         <ion-item menu-close href="#/app/sobremi">
-          Acerca
+          <i class="ion-information-circled"></i>&nbsp; Acerca
         </ion-item>
         <ion-item menu-close href="#/app/generar">
-          Generar créditos
+          <i class="ion-cash"></i>&nbsp; Generar créditos
         </ion-item>
       </ion-list>
     </ion-content>
   </ion-side-menu>
 </ion-side-menus>
+
+<style>
+  ion-list .item-content {
+    background-color: #e2d3b6 !important;
+    color: #33577c !important;
+    font-weight: bold;
+  }
+
+  .menubarra {
+    color: #e2d3b6 !important;
+    background-color: #33577c !important;
+    font-weight: bold;
+  }
+
+  .bar-stable .button.button-clear {
+    color: #e2d3b6 !important;
+  }
+</style>

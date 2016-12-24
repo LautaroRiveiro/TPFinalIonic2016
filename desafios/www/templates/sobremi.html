@@ -1,6 +1,6 @@
 <ion-view view-title="Acerca de mí">
-    <ion-content>
-        <div class="item item-thumbnail-left">
+    <ion-content style="background: url(img/background-app.jpg) no-repeat center center fixed; background-size: cover;">
+        <div class="item item-thumbnail-left" id="datospersonales">
             <img src="img/lautaro.jpg">
             <h2>Autor: Lautaro Riveiro</h2>
             <p>
@@ -29,9 +29,30 @@
         </ion-list>
         
         <div class="card">
-            <div class="item item-text-wrap assertive" style="text-align: center;">
+            <div class="item item-text-wrap assertive" style="text-align: center; background-color: #33577c; color: #e2d3b6; font-weight: bold;">
             Gracias por visitarme!!
             </div>
         </div>
     </ion-content>
 </ion-view>
+
+<style>
+    ion-list .item{
+        background-color: #e2d3b6;
+        color: #33577c !important;
+    }
+
+    h2, p{
+        color: #33577c !important;
+    }
+
+    #datospersonales{
+        background-color: #cba97d;
+        color: #33577c !important;
+    }
+
+    .button{
+        background-color: #33577c;
+        color: #e2d3b6;
+    }
+</style>
