@@ -7,8 +7,8 @@
 	  </div>
     
     <ion-list ng-show="bandera.estado == 'inicio'">
-      <ion-item ng-repeat="desafio in partidas" ng-click="AmpliarDesafio(desafio.key)">
-        {{desafio.creador}} apuesta {{desafio.monto}} créditos
+      <ion-item ng-repeat="partida in partidas" ng-click="AmpliarDesafio(partida.key)">
+        {{partida.creador}} apuesta {{partida.monto}} créditos
       </ion-item>
     </ion-list>
     

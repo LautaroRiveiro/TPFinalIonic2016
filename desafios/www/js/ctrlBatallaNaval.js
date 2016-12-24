@@ -1,6 +1,6 @@
 angular.module('batallaNaval.controller', [])
 
-.controller('BatallaNavalCtrl', function($scope, $timeout) {
+.controller('BatallaNavalCtrl', function($scope, $timeout, datosSesion) {
   //Creo las variables necesarias
   $scope.partida = {};
   $scope.bandera = {};
@@ -9,23 +9,21 @@ angular.module('batallaNaval.controller', [])
 
   //Referencio a Partidas de Firebase
   var refPartidas = new Firebase("https://tpfinalionic2016.firebaseio.com/partidas");
-  console.info(refPartidas.child('-KUnaLX6HMa1TA9l21kY'));
   refPartidas.on('child_added', function(data){
     $timeout(function(){
-      console.info(data.val(), data.key());
       var partida = data.val();
       partida.key = data.key();
       $scope.partidas.push(partida);
-      console.info($scope.partidas, "Playlist: ", $scope.playlists);
+      console.info("Partidas: ", $scope.partidas);
     });
   });
-
 
   $scope.Guardar = function(){
     console.info($scope.partida);
     //Valido que estén monto y ubicación cargados
     if($scope.partida.monto != "" && $scope.partida.ubicacionCreador != ""){
-      $scope.partida.creador = "Lautaro";
+      $scope.partida.creador = datosSesion.getUsuario().nombre;
+      $scope.partida.creadorUid = firebase.auth().currentUser.uid;
       $scope.partida.fecha = Firebase.ServerValue.TIMESTAMP;
       $scope.partida.estado = "esperando";
       //Subo la apuesta al Firebase

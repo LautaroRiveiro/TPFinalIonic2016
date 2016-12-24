@@ -1,0 +1,31 @@
+angular.module('servicios', [])
+
+.service('datosSesion', function ($timeout) {
+    var usuario = {};
+
+    //Recupero de la tabla 'users' del firebase los datos del usuario a partir del UID del token
+    var ref = new Firebase("https://tpfinalionic2016.firebaseio.com/users");
+    ref.child(firebase.auth().currentUser.uid).on('child_added', function(data){
+      $timeout(function(){
+        console.info(data.val(), data.key());
+        var valor = data.val();
+        var campo = data.key();
+        if(campo == "ingreso"){
+            //var fecha = new Date(data.val().ingreso);
+            var fecha = new Date(valor);
+            console.info(fecha);
+            valor = fecha.getDate() + "/" + (fecha.getMonth()+1) + "/" + fecha.getFullYear();
+        }
+        usuario[campo] = valor;
+      });
+    });
+
+    return {
+        getUsuario: function () {
+            return usuario;
+        },
+        setUsuario: function(value) {
+            usuario = value;
+        }
+    };
+});
