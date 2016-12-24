@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'batallaNaval.controller', 'desafios.controller'])
+angular.module('starter', ['ionic', 'starter.controllers', 'batallaNaval.controller', 'desafios.controller', 'login.controller'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -36,7 +36,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'batallaNaval.control
     url: '/perfil',
     views: {
       'menuContent': {
-        templateUrl: 'templates/perfil.html'
+        templateUrl: 'templates/perfil.html',
+        controller: 'PerfilCtrl'
       }
     }
   })
@@ -88,8 +89,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'batallaNaval.control
           controller: 'GenerarCtrl'
         }
       }
-    });
+    })
+  
+  .state('login', {
+    url: '/login',
+    templateUrl: 'templates/login.html',
+    controller: 'LoginCtrl'
+  });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/perfil');
+  $urlRouterProvider.otherwise('/login');
+})
+
+//Para sacar la caché por defecto a la aplicación para no guardar los datos entre cada vista y login.
+.config(function($ionicConfigProvider) {
+  $ionicConfigProvider.views.maxCache(0);
 });

@@ -1,25 +1,61 @@
-<ion-modal-view>
-  <ion-header-bar>
-    <h1 class="title">Login</h1>
-    <div class="buttons">
-      <button class="button button-clear" ng-click="closeLogin()">Close</button>
-    </div>
+<ion-view cache-view="false">
+  <ion-header-bar  align-title="center" class="bar bar-header bar-positive">
+    <h1 class="title">Bienvenido</h1>
   </ion-header-bar>
-  <ion-content>
-    <form ng-submit="doLogin()">
+  <ion-content  scroll="false" style="background: url(img/login-background.jpg) no-repeat center center fixed; background-size: cover;">
+    <img src="img/barco.png" style="width: 50%;  max-width: 200px; display: block; margin-left: auto; margin-right: auto;">
+
+
+    <form ng-submit="doLogin()" ng-if="estado.estado == 'login'">
       <div class="list">
-        <label class="item item-input">
-          <span class="input-label">Username</span>
+        <label class="item item-input" style="background-color: #fff4e6">
+          <span class="input-label">E-mail</span>
           <input type="text" ng-model="loginData.username">
         </label>
-        <label class="item item-input">
+        <label class="item item-input" style="background-color: #fff4e6">
           <span class="input-label">Password</span>
           <input type="password" ng-model="loginData.password">
         </label>
-        <label class="item">
-          <button class="button button-block button-positive" type="submit">Log in</button>
+        <label class="item" style="background-color: #fff4e6">
+          <button class="button button-block button-balanced" type="submit" >INGRESAR</button>
         </label>
       </div>
     </form>
+
+    <form ng-submit="SignUp()" ng-if="estado.estado == 'registro'">
+      <div class="list">
+        <label class="item item-input" style="background-color: #fff4e6">
+          <span class="input-label">Nombre</span>
+          <input type="text" ng-model="loginData.nombre">
+        </label>
+        <label class="item item-input" style="background-color: #fff4e6">
+          <span class="input-label">E-mail</span>
+          <input type="text" ng-model="loginData.username">
+        </label>
+        <label class="item item-input" style="background-color: #fff4e6">
+          <span class="input-label">Password</span>
+          <input type="password" ng-model="loginData.password">
+        </label>
+        <label class="item" style="background-color: #fff4e6">
+          <button class="button button-block button-balanced" type="submit">REGISTRARSE</button>
+        </label>
+      </div>
+    </form>
+
+
+    <label class="item" ng-if="estado.estado == 'registro'" style="background-color: #fff4e6">
+      <button class="button button-block button-assertive" ng-click="HabilitarLogin()">VOLVER</button>
+    </label>
+
+    <br>
+    <p style="text-align: center;" ng-if="estado.estado == 'login'"><a href="#" ng-click="ResetearClave()"><strong>Olvidé la contraseña</strong></a> | <a href="#"  ng-click="HabilitarRegistro()"><strong>Registrarse</strong></a></p>
+  
+    <br>
+    <div class="button-bar" style="position: fixed; bottom: 0;" ng-if="estado.estado == 'login'">
+    <button class="button button-assertive" ng-click="Test('usuario')"><i class="ion-person-stalker"></i>&nbsp;Test Usuario</button>
+    <button class="button button-assertive" ng-click="Test('admin')"><i class="ion-person-add"></i>&nbsp;Test Admin</button>
+    </div>
+    
+
   </ion-content>
-</ion-modal-view>
+</ion-view>
