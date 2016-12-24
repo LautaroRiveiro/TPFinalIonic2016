@@ -1,26 +1,27 @@
 <ion-view view-title="Perfil">
-  <ion-content>
+  <ion-content style="background: url(img/background-app.jpg) no-repeat center center fixed; background-size: cover;">
 		<div class="list card">
 			<div class="item item-avatar">
 				<img src="img/lautaro.jpg">
-				<h2>{usuario.nombre}</h2>
-				<p>Usuario desde: {usuario.registro}</p>
+				<h2>{{usuario.nombre}}</h2>
+				<p>Usuario desde: {{usuario.ingreso}}</p>
 			</div>
 
 			<div class="item item-body">
-				<h2>Créditos: {usuario.creditos}</h2>
-				<div style="text-align: center;"><button class="button button-balanced">
+				<h2 style="float: left;">Créditos: {{usuario.creditos}}</h2>
+				<div style="float: right;"><button class="button button-balanced">
 				  Cargar crédito
 				</button></div>
 			</div>
 			
 			<div class="item item-body" style="text-align: center;">
-				<button class="button button-assertive button-block">
+				<button class="button button-assertive button-block" ng-click="Logout()">
 				  <i class="ion-power"></i>&nbsp;Salir
 				</button>
 			</div>
 		</div>
 
-		<ion-checkbox ng-model="usuario.token">Mostrar token</ion-checkbox>
+		<ion-checkbox ng-model="token.mostrar">Mostrar token</ion-checkbox>
+		<pre ng-if="token.mostrar" style="background-color: #FFFFFF;">{{token.info | json}}</pre>
   </ion-content>
 </ion-view>

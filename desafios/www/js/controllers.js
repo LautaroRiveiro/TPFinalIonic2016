@@ -2,46 +2,51 @@ angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-  // Form data for the login modal
-  $scope.loginData = {};
-
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
-
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
-
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
-  };
 })
 
-.controller('PerfilCtrl', function($scope, $stateParams) {
+.controller('PerfilCtrl', function($scope, $stateParams, $state, $timeout) {
+    
+    //Creo un objeto usuario para almacenar los datos del usuario logueado
+    $scope.usuario = {}
+    //var user = firebase.auth().currentUser;
+    $scope.token = {};
+    $scope.token.mostrar = false;
+    $scope.token.info = firebase.auth().currentUser;
+
+    //Recupero de la tabla 'users' del firebase los datos del usuario a partir del UID del token
+    var ref = new Firebase("https://tpfinalionic2016.firebaseio.com/users");
+    ref.child(firebase.auth().currentUser.uid).on('child_added', function(data){
+      $timeout(function(){
+        console.info(data.val(), data.key());
+        var valor = data.val();
+        var campo = data.key();
+        if(campo == "ingreso"){
+            //var fecha = new Date(data.val().ingreso);
+            var fecha = new Date(valor);
+            console.info(fecha);
+            valor = fecha.getDate() + "/" + (fecha.getMonth()+1) + "/" + fecha.getFullYear();
+        }
+        $scope.usuario[campo] = valor;
+      });
+    });
+
+    $scope.Logout = function() {
+      firebase.auth().signOut()
+      .then(function(){
+        //Estamos deslogueados
+        console.log("Adios");
+        //CurrentUser tiene los datos de la sesión. Si no hay sesión activa, muestra null.
+        console.info(firebase.auth().currentUser);
+        $timeout(function(){
+            //$scope.estado = 'login';
+            //$state.go('login');
+            $state.go('login', null, {reload: true});
+        }, 1000);
+      }, function(error){
+        //Error en deslogueo
+        console.log("Error");
+      });
+    };
 })
 
 .controller('DesafiosCtrl', function($scope) {
