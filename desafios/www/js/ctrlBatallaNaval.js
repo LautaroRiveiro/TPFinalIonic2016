@@ -1,11 +1,12 @@
 angular.module('batallaNaval.controller', [])
 
-.controller('BatallaNavalCtrl', function($scope, $timeout, datosSesion) {
+.controller('BatallaNavalCtrl', function($scope, $timeout, datosSesion, $state) {
   //Creo las variables necesarias
   $scope.partida = {};
   $scope.bandera = {};
   $scope.bandera.estado = "inicio";
-  $scope.partidas = [];
+  $scope.partidas = {};
+  //$scope.partidasPropias = [];
 
   //Referencio a Partidas de Firebase
   var refPartidas = new Firebase("https://tpfinalionic2016.firebaseio.com/partidas");
@@ -13,24 +14,42 @@ angular.module('batallaNaval.controller', [])
     $timeout(function(){
       var partida = data.val();
       partida.key = data.key();
-      $scope.partidas.push(partida);
-      console.info("Partidas: ", $scope.partidas);
+      if(partida.creadorUid != firebase.auth().currentUser.uid && partida.estado == "esperando"){
+          //$scope.partidas.push(partida);  
+          $scope.partidas[partida.key] = partida;
+      }
+      console.info("Partidas nueva: ", $scope.partidas);
+    });
+  });
+
+  refPartidas.on('child_changed', function(data){
+    $timeout(function(){
+      var partida = data.val();
+      partida.key = data.key();
+      if(partida.creadorUid != firebase.auth().currentUser.uid && partida.estado != "esperando"){
+          //$scope.partidas.splice(partida.key, 1);
+          delete $scope.partidas[partida.key];
+      }
+      console.info("Partidas modif: ", $scope.partidas);
     });
   });
 
   $scope.Guardar = function(){
     console.info($scope.partida);
     //Valido que estén monto y ubicación cargados
-    if($scope.partida.monto != "" && $scope.partida.ubicacionCreador != ""){
+    if($scope.partida.monto != undefined && $scope.partida.ubicacionCreador != undefined){
       $scope.partida.creador = datosSesion.getUsuario().nombre;
       $scope.partida.creadorUid = firebase.auth().currentUser.uid;
-      $scope.partida.fecha = Firebase.ServerValue.TIMESTAMP;
+      $scope.partida.fechaCreado = Firebase.ServerValue.TIMESTAMP;
       $scope.partida.estado = "esperando";
       //Subo la apuesta al Firebase
       refPartidas.push($scope.partida);
       //Reinicio valores
-      $scope.partida.monto = "";
-      $scope.partida.ubicacionCreador = "";
+      for (var variableKey in $scope.partida){
+          if ($scope.partida.hasOwnProperty(variableKey)){
+              delete $scope.partida[variableKey];
+          }
+      }
       //Vuelvo a las partidas creadas
       $scope.bandera.estado = "inicio";
     }
@@ -41,8 +60,13 @@ angular.module('batallaNaval.controller', [])
 
   $scope.Cancelar = function(){
     //Reinicio valores
-    $scope.partida.monto = "";
-    $scope.partida.ubicacionCreador = "";
+    //$scope.partida.monto = "";
+    //$scope.partida.ubicacionCreador = "";
+    for (var variableKey in $scope.partida){
+        if ($scope.partida.hasOwnProperty(variableKey)){
+            delete $scope.partida[variableKey];
+        }
+    }
     //Vuelvo a las partidas creadas
     $scope.bandera.estado = "inicio";
   };
@@ -59,15 +83,25 @@ angular.module('batallaNaval.controller', [])
     if($scope.partida.ubicacionDesafiante != ""){
       //Cambiar datos de la partida existente
       firebase.database().ref("/partidas/"+$scope.key).update({
-        desafiante: "Facundo",
+        desafiante: datosSesion.getUsuario().nombre,
+        desafianteUid: firebase.auth().currentUser.uid,
         ubicacionDesafiante: $scope.partida.ubicacionDesafiante,
-        estado: "aceptado"
+        estado: "aceptado",
+        fechaAceptado: Firebase.ServerValue.TIMESTAMP
       });
       //Reinicio valores
-      $scope.key = "";
-      $scope.partida.ubicacionDesafiante = "";
+      //$scope.key = "";
+      //$scope.partida.ubicacionDesafiante = "";
+      for (var variableKey in $scope.partida){
+          if ($scope.partida.hasOwnProperty(variableKey)){
+              delete $scope.partida[variableKey];
+          }
+      }
       console.info("KEY: ", $scope.key);
       $scope.bandera.estado = "inicio";
+      //$state.transitionTo($state.current, $stateParams, { 
+        //reload: true, inherit: false, notify: false 
+      //});
     }
     else{
       alert("Falta elegir ubicación");
@@ -76,8 +110,13 @@ angular.module('batallaNaval.controller', [])
 
   $scope.Volver = function(){
     //Reinicio valores
-    $scope.key = "";
-    $scope.partida.ubicacionDesafiante = "";
+    //$scope.key = "";
+    //$scope.partida.ubicacionDesafiante = "";
+    for (var variableKey in $scope.partida){
+        if ($scope.partida.hasOwnProperty(variableKey)){
+            delete $scope.partida[variableKey];
+        }
+    }
     console.info("KEY: ", $scope.key);
     //Vuelvo a las partidas creadas
     $scope.bandera.estado = "inicio";

@@ -4,7 +4,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('PerfilCtrl', function($scope, $stateParams, $state, $timeout) {
+.controller('PerfilCtrl', function($scope, $stateParams, $state, $timeout, $ionicHistory) {
     
     //Creo un objeto usuario para almacenar los datos del usuario logueado
     $scope.usuario = {}
@@ -41,6 +41,8 @@ angular.module('starter.controllers', [])
             //$scope.estado = 'login';
             //$state.go('login');
             $state.go('login', null, {reload: true});
+            $ionicHistory.clearCache();
+            //$window.location.reload(true);
         }, 1000);
       }, function(error){
         //Error en deslogueo
