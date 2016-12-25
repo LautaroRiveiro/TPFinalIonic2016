@@ -5,8 +5,65 @@
   		Crear partida
   		<i class="icon ion-plus-round"></i>
 	  </div>
+
+    <div class="item item-positive item-icon-left item-icon-right" ng-click="bandera.estado = 'buscar';" ng-show="bandera.estado == 'inicio'">
+      <i class="icon ion-trophy"></i>
+      Buscar partidas
+      <i class="icon ion-plus-round"></i>
+    </div>
+
+    <div class="card" ng-show="bandera.estado == 'inicio'">
+      <div class="item item-divider" style="text-align: center;">
+        TU TURNO
+      </div>
+      <div class="item item-text-wrap">
+        <ion-list>
+          <ion-item ng-repeat="partida in partidasEnJuego" ng-if='partida.turno==turno.turno' ng-click="JugarTurno(partida)">
+            {{partida.creador}} apuesta {{partida.monto}} créditos
+          </ion-item>
+        </ion-list>
+      </div>
+      <div class="item item-divider">
+      </div>
+    </div>
+
+    <div class="card" ng-show="bandera.estado == 'inicio'">
+      <div class="item item-divider" style="text-align: center;">
+        ESPERANDO AL OPONENTE
+      </div>
+      <div class="item item-text-wrap">
+        <ion-list>
+          <ion-item ng-repeat="partida in partidasEnJuego" ng-if='partida.estado=="aceptado" && partida.turno!=turno.turno'>
+            {{partida.creador}} apuesta {{partida.monto}} créditos
+          </ion-item>
+        </ion-list>
+      </div>
+      <div class="item item-divider">
+      </div>
+    </div>
+
+    <div class="card" ng-show="bandera.estado == 'inicio'">
+      <div class="item item-divider" style="text-align: center;">
+        SIN OPONENTE
+      </div>
+      <div class="item item-text-wrap">
+        <ion-list>
+          <ion-item ng-repeat="partida in partidasPropiasEsperando" ng-if='partida.estado=="esperando"'>
+            {{partida.creador}} apuesta {{partida.monto}} créditos
+          </ion-item>
+        </ion-list>
+      </div>
+      <div class="item item-divider">
+      </div>
+    </div>
     
-    <ion-list ng-show="bandera.estado == 'inicio'">
+    <div class="item item-assertive item-icon-left item-icon-right" ng-click="bandera.estado = 'inicio';" ng-show="bandera.estado == 'buscar'">
+      <i class="icon ion-trophy"></i>
+      Volver
+      <i class="icon ion-plus-round"></i>
+    </div>
+
+    <ion-list ng-show="bandera.estado == 'buscar'">
       <ion-item ng-repeat="partida in partidas" ng-click="AmpliarDesafio(partida.key)">
         {{partida.creador}} apuesta {{partida.monto}} créditos
       </ion-item>
@@ -56,7 +113,7 @@
       <pre>{{partida | json}}</pre>
     </div>
     
-    <div ng-show="bandera.estado == 'partida'">
+    <div ng-if="bandera.estado == 'partida'">
       <div class="item item-divider" style="text-align: center;">
         Elegir ubicación del crédito
       </div>
@@ -82,6 +139,35 @@
       <div class="button-bar">
         <a class="button button-assertive" ng-click="Volver()"><i class="icon ion-close-round"></i></a>
         <a class="button button-balanced" ng-click="Aceptar()"><i class="icon ion-checkmark-round"></i></a>
+      </div>
+    </div>
+
+    <div ng-if="bandera.estado == 'jugar'">
+      <div class="item item-divider" style="text-align: center;">
+        Elegir ubicación
+      </div>
+      <div class="row" style="width:50%; text-align: center; margin: auto;">
+        <div class="col">
+          <input type="radio" class="button button-assertive" name="ubicacionDesafiante" ng-model="partida.ubicacionDesafiante" value="1" ng-disabled="mostrarRadio._1">
+        </div>
+        <div class="col">
+          <input type="radio" class="button button-assertive" name="ubicacionDesafiante" ng-model="partida.ubicacionDesafiante" value="2" ng-disabled="mostrarRadio._2">
+        </div>
+      </div>
+      <div class="row" style="width:50%; text-align: center; margin: auto;">
+        <div class="col">
+          <input type="radio" class="button button-assertive" name="ubicacionDesafiante" ng-model="partida.ubicacionDesafiante" value="3" ng-disabled="mostrarRadio._3">
+        </div>
+        <div class="col">
+          <input type="radio" class="button button-assertive" name="ubicacionDesafiante" ng-model="partida.ubicacionDesafiante" value="4" ng-disabled="mostrarRadio._4">
+        </div>
+      </div>
+      <div class="item item-divider" style="text-align: center;">
+        Aceptar jugada
+      </div>
+      <div class="button-bar">
+        <a class="button button-assertive" ng-click="VolverJugada()"><i class="icon ion-close-round"></i></a>
+        <a class="button button-balanced" ng-click="AceptarJugada()"><i class="icon ion-checkmark-round"></i></a>
       </div>
     </div>
 
