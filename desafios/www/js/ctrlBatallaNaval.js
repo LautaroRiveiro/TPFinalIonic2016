@@ -29,7 +29,7 @@ angular.module('batallaNaval.controller', [])
       else if (partida.creadorUid == firebase.auth().currentUser.uid && partida.estado == "esperando"){
           $scope.partidasPropiasEsperando[partida.key] = partida;
       }
-      if (partida.estado != "esperando" && (partida.creadorUid == firebase.auth().currentUser.uid || partida.desafianteUid == firebase.auth().currentUser.uid)) {
+      if (partida.estado == "aceptado" && (partida.creadorUid == firebase.auth().currentUser.uid || partida.desafianteUid == firebase.auth().currentUser.uid)) {
           $scope.partidasEnJuego[partida.key] = partida;
       }
       console.info("Partidas nueva: ", $scope.partidas);
@@ -40,16 +40,19 @@ angular.module('batallaNaval.controller', [])
     $timeout(function(){
       var partida = data.val();
       partida.key = data.key();
-      if(partida.creadorUid != firebase.auth().currentUser.uid && partida.estado != "esperando"){
+      if(partida.creadorUid != firebase.auth().currentUser.uid && partida.estado == "aceptado"){
           //$scope.partidas.splice(partida.key, 1);
           delete $scope.partidas[partida.key];
       }
-      if (partida.creadorUid == firebase.auth().currentUser.uid && partida.estado != "esperando"){
+      if (partida.creadorUid == firebase.auth().currentUser.uid && partida.estado == "aceptado"){
           delete $scope.partidasPropiasEsperando[partida.key];
       }
-      if (partida.estado != "esperando" && (partida.creadorUid == firebase.auth().currentUser.uid || partida.desafianteUid == firebase.auth().currentUser.uid)) {
+      if (partida.estado == "aceptado" && (partida.creadorUid == firebase.auth().currentUser.uid || partida.desafianteUid == firebase.auth().currentUser.uid)) {
           $scope.partidasEnJuego[partida.key] = partida;
       }
+      if (partida.estado == "finalizado"){
+          delete $scope.partidasEnJuego[partida.key];
+      } 
       console.info("Partidas modif: ", $scope.partidas);
       console.info("Partidas Propias modif: ", $scope.partidasPropias);
     });
@@ -65,6 +68,12 @@ angular.module('batallaNaval.controller', [])
       $scope.partida.estado = "esperando";
       //Subo la apuesta al Firebase
       refPartidas.push($scope.partida);
+      //Le saco el monto apostado de sus créditos para que no los vuelva a apostar
+      var nuevoCredito = datosSesion.getUsuario().creditos - $scope.partida.monto;
+      firebase.database().ref("/users/"+firebase.auth().currentUser.uid).update({
+        creditos: nuevoCredito
+      });
+      datosSesion.setCreditos(nuevoCredito);
       //Reinicio valores
       for (var variableKey in $scope.partida){
           if ($scope.partida.hasOwnProperty(variableKey)){
@@ -92,9 +101,10 @@ angular.module('batallaNaval.controller', [])
     $scope.bandera.estado = "inicio";
   };
 
-  $scope.AmpliarDesafio = function(key){
+  $scope.AmpliarDesafio = function(partida){
+    $scope.partida = jQuery.extend(true, {}, partida);
+    $scope.key = $scope.partida.key;
     $scope.bandera.estado = 'partida';
-    $scope.key = key;
     console.info("KEY: ", $scope.key);
     $scope.partida.ubicacionDesafiante = "";
   };
@@ -111,6 +121,12 @@ angular.module('batallaNaval.controller', [])
         fechaAceptado: Firebase.ServerValue.TIMESTAMP,
         turno: firebase.auth().currentUser.uid
       });
+      //Le saco el monto apostado de sus créditos para que no los vuelva a apostar
+      var nuevoCredito = datosSesion.getUsuario().creditos - $scope.partida.monto;
+      firebase.database().ref("/users/"+firebase.auth().currentUser.uid).update({
+        creditos: nuevoCredito
+      });
+      datosSesion.setCreditos(nuevoCredito);
       //Reinicio valores
       //$scope.key = "";
       //$scope.partida.ubicacionDesafiante = "";
@@ -155,7 +171,7 @@ angular.module('batallaNaval.controller', [])
     $scope.partida = jQuery.extend(true, {}, partida);
     $scope.bandera.estado = 'jugar';
     $scope.key = $scope.partida.key;
-    $scope.partida.ubicacionDesafiante = "";
+    $scope.partida.miTurno = "";
     for (var variableKey in $scope.partida.turnos){
       if ($scope.partida.turnos[variableKey].jugador == firebase.auth().currentUser.uid){
           $scope.mostrarRadio["_"+$scope.partida.turnos[variableKey].ubicacion] = true;
@@ -178,8 +194,9 @@ angular.module('batallaNaval.controller', [])
   /* Cuando acepto la jugada, hago lo siguiente:
    * 1. Valido que esté la ubicación cargada
    * 2. Identifico el uid del oponente para updatear la partida y poner que le toca al otro
-   * 3. Cambiar datos de la partida existente
-   * 4. Reinicio valores y regreso
+   * 3. Evalúo si acerté
+   * 4. Cambiar datos de la partida existente
+   * 5. Reinicio valores y regreso
    */
   $scope.AceptarJugada = function(){
     //Valido que esté la ubicación cargada
@@ -194,7 +211,8 @@ angular.module('batallaNaval.controller', [])
          uidOponente = $scope.partida.desafianteUid;
       };
       console.info("OPONENTE", uidOponente);
-      
+
+
       //Cambiar datos de la partida existente
       firebase.database().ref("/partidas/"+$scope.key).update({
         turno: uidOponente
@@ -202,8 +220,109 @@ angular.module('batallaNaval.controller', [])
       firebase.database().ref("/partidas/"+$scope.key+"/turnos").push({
         jugador: firebase.auth().currentUser.uid,
         fecha: Firebase.ServerValue.TIMESTAMP,
-        ubicacion: $scope.partida.ubicacionDesafiante
+        ubicacion: $scope.partida.miTurno
       });
+
+
+      //Evalúo si acerté
+      if($scope.partida.creadorUid != firebase.auth().currentUser.uid){ //Yo soy el DESAFIANTE
+         if($scope.partida.miTurno == $scope.partida.ubicacionCreador){
+/*            if($scope.partida.ganador == uidOponente){
+              alert("EMPATASTE");
+              firebase.database().ref("/partidas/"+$scope.key).update({
+                ganador: "EMPATE"
+              });
+              //MUEVO LA PARTIDA A LAS FINALIZADAS Y DEVUELVO LOS CREDITOS
+            }
+            else{*/
+              alert("ACERTASTE. Esperar por el turno del creador.");
+              firebase.database().ref("/partidas/"+$scope.key).update({
+                ganador: firebase.auth().currentUser.uid
+              });
+            //}
+         }
+         else{
+/*            if($scope.partida.ganador == uidOponente){
+              alert("PERDISTE");
+              //MUEVO LA PARTIDA A LAS FINALIZADAS Y ENTREGO LOS CREDITOS
+            }
+            else{*/
+              alert("AGUA");
+            //}
+         };
+      }
+      else{
+         if($scope.partida.miTurno == $scope.partida.ubicacionDesafiante){ //Yo soy el CREADOR
+            if($scope.partida.ganador == uidOponente){
+              alert("EMPATASTE");
+              firebase.database().ref("/partidas/"+$scope.key).update({
+                ganador: "EMPATE",
+                estado: "finalizado"
+              });
+              //MUEVO LA PARTIDA A LAS FINALIZADAS Y DEVUELVO LOS CREDITOS A CADA UNO
+              var monto = $scope.partida.monto;
+              var nuevoCredito = parseInt(datosSesion.getUsuario().creditos) + parseInt($scope.partida.monto);
+              firebase.database().ref("/users/"+firebase.auth().currentUser.uid).update({
+                creditos: nuevoCredito
+              });
+              datosSesion.setCreditos(nuevoCredito);
+
+              firebase.database().ref("/users/"+uidOponente+"/creditos").once('value')
+              .then(function(dataSnapshot) {
+                nuevoCredito = parseInt(dataSnapshot.val()) + parseInt(monto);
+                //console.info("dataSnapshot", dataSnapshot);
+                //console.info("dataSnapshot.val()", dataSnapshot.val());
+                //console.info("monto", monto);
+                //console.info("nuevoCredito", nuevoCredito);
+                firebase.database().ref("/users/"+uidOponente).update({
+                  creditos: nuevoCredito
+                });
+              });
+
+              //creditos = firebase.database().ref("/users/"+uidOponente+"/creditos").val() + $scope.partida.monto;
+              //firebase.database().ref("/users/"+uidOponente).update({
+              //  creditos: nuevoCredito
+              //});
+            }
+            else{
+              alert("GANASTE");
+              firebase.database().ref("/partidas/"+$scope.key).update({
+                ganador: firebase.auth().currentUser.uid,
+                estado: "finalizado"
+              });
+              //MUEVO LA PARTIDA A LAS FINALIZADAS Y ENTREGO LOS CREDITOS A MI
+              var monto = $scope.partida.monto;
+              var nuevoCredito = parseInt(datosSesion.getUsuario().creditos) + parseInt($scope.partida.monto)*2;
+              firebase.database().ref("/users/"+firebase.auth().currentUser.uid).update({
+                creditos: nuevoCredito
+              });
+              datosSesion.setCreditos(nuevoCredito);
+            }
+         }
+         else{
+            if($scope.partida.ganador == uidOponente){
+              alert("PERDISTE");
+              //MUEVO LA PARTIDA A LAS FINALIZADAS Y ENTREGO LOS CREDITOS AL OPONENTE
+              firebase.database().ref("/partidas/"+$scope.key).update({
+                estado: "finalizado"
+              });
+
+              var monto = $scope.partida.monto;
+              firebase.database().ref("/users/"+uidOponente+"/creditos").once('value')
+              .then(function(dataSnapshot) {
+                var nuevoCredito = parseInt(dataSnapshot.val()) + parseInt(monto)*2;
+                firebase.database().ref("/users/"+uidOponente).update({
+                  creditos: nuevoCredito
+                });
+              });
+            }
+            else{
+              alert("AGUA");
+            }
+         };
+      };
+      
+
 
       //Reinicio valores y regreso
       for (var variableKey in $scope.partida){

@@ -9,7 +9,7 @@
     <div class="item item-positive item-icon-left item-icon-right" ng-click="bandera.estado = 'buscar';" ng-show="bandera.estado == 'inicio'">
       <i class="icon ion-trophy"></i>
       Buscar partidas
-      <i class="icon ion-plus-round"></i>
+      <i class="icon ion-search"></i>
     </div>
 
     <div class="card" ng-show="bandera.estado == 'inicio'">
@@ -64,7 +64,7 @@
     </div>
 
     <ion-list ng-show="bandera.estado == 'buscar'">
-      <ion-item ng-repeat="partida in partidas" ng-click="AmpliarDesafio(partida.key)">
+      <ion-item ng-repeat="partida in partidas" ng-click="AmpliarDesafio(partida)">
         {{partida.creador}} apuesta {{partida.monto}} créditos
       </ion-item>
     </ion-list>
@@ -148,18 +148,18 @@
       </div>
       <div class="row" style="width:50%; text-align: center; margin: auto;">
         <div class="col">
-          <input type="radio" class="button button-assertive" name="ubicacionDesafiante" ng-model="partida.ubicacionDesafiante" value="1" ng-disabled="mostrarRadio._1">
+          <input type="radio" class="button button-assertive" name="ubicacionDesafiante" ng-model="partida.miTurno" value="1" ng-disabled="mostrarRadio._1">
         </div>
         <div class="col">
-          <input type="radio" class="button button-assertive" name="ubicacionDesafiante" ng-model="partida.ubicacionDesafiante" value="2" ng-disabled="mostrarRadio._2">
+          <input type="radio" class="button button-assertive" name="ubicacionDesafiante" ng-model="partida.miTurno" value="2" ng-disabled="mostrarRadio._2">
         </div>
       </div>
       <div class="row" style="width:50%; text-align: center; margin: auto;">
         <div class="col">
-          <input type="radio" class="button button-assertive" name="ubicacionDesafiante" ng-model="partida.ubicacionDesafiante" value="3" ng-disabled="mostrarRadio._3">
+          <input type="radio" class="button button-assertive" name="ubicacionDesafiante" ng-model="partida.miTurno" value="3" ng-disabled="mostrarRadio._3">
         </div>
         <div class="col">
-          <input type="radio" class="button button-assertive" name="ubicacionDesafiante" ng-model="partida.ubicacionDesafiante" value="4" ng-disabled="mostrarRadio._4">
+          <input type="radio" class="button button-assertive" name="ubicacionDesafiante" ng-model="partida.miTurno" value="4" ng-disabled="mostrarRadio._4">
         </div>
       </div>
       <div class="item item-divider" style="text-align: center;">

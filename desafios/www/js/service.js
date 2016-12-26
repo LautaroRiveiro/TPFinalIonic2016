@@ -51,6 +51,9 @@ angular.module('servicios', [])
         },
         setUsuario: function(value) {
             usuario = value;
+        },
+        setCreditos: function(value) {
+            usuario.creditos = value;
         }
     };
 });
