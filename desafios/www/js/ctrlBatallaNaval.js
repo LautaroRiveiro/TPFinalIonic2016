@@ -5,6 +5,7 @@ angular.module('batallaNaval.controller', [])
   $scope.partida = {};
   $scope.bandera = {};
   $scope.bandera.estado = "inicio";
+  $scope.bandera.max = String(datosSesion.getUsuario().creditos);
   $scope.partidas = {};
   $scope.partidasPropiasEsperando = {};
   $scope.partidasEnJuego = {};
@@ -15,6 +16,7 @@ angular.module('batallaNaval.controller', [])
   $scope.mostrarRadio._2 = false;
   $scope.mostrarRadio._3 = false;
   $scope.mostrarRadio._4 = false;
+  $scope.rango = {};
 
   //Referencio a Partidas de Firebase
   var refPartidas = new Firebase("https://tpfinalionic2016.firebaseio.com/partidas");
@@ -57,6 +59,16 @@ angular.module('batallaNaval.controller', [])
       console.info("Partidas Propias modif: ", $scope.partidasPropias);
     });
   });
+
+  $scope.NuevaPartida = function(){
+    $scope.bandera.estado = 'crearPartida';
+    $scope.rango = {
+      min: '1',
+      max: datosSesion.getUsuario().creditos,
+      value: Math.round(parseFloat(datosSesion.getUsuario().creditos) / 2).toString()
+    }
+    console.info("rango",$scope.rango);
+  };
 
   $scope.Guardar = function(){
     console.info($scope.partida);

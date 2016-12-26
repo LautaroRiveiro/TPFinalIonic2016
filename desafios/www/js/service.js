@@ -20,6 +20,16 @@ angular.module('servicios', [])
       });
     });
 
+    ref.child(firebase.auth().currentUser.uid).on('child_changed', function(data){
+      $timeout(function(){
+        var valor = data.val();
+        var campo = data.key();
+        if(campo == "creditos"){
+            usuario[campo] = valor;
+        }
+      });
+    });
+
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         ref.child(firebase.auth().currentUser.uid).on('child_added', function(data){
