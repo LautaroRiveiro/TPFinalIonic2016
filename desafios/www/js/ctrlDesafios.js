@@ -21,7 +21,7 @@ angular.module('desafios.controller', [])
     //Inicio (inicio), Buscar Desafío(buscar), Crear Desafío (crearDesafio) y Ampliar Desafío (desafío).
     $scope.bandera = {};
     $scope.bandera.estado = "inicio";
-    
+    //$scope.value = {};
 
 /*    $scope.desafios = [];
 
@@ -51,12 +51,47 @@ angular.module('desafios.controller', [])
 
     $scope.Resultado = function(resultado){
         if(resultado == "ganador"){
-            //GANÉ Y ME COBRO LOS CRÉDITOS Y ACTUALIZO LA PARTIDA A FINALIZADA
-            alert("GANASTE");
+            //GANÉ (ganó el creador)
+            alert("GANASTE!\nFueron sumados los créditos a tu cuenta.");
+
+            //Actualizo el desafío a finalizado
+            var datosResultado = {
+                ganador: firebase.auth().currentUser.uid,
+                estado: "finalizado",
+                fechaFinalizado: Firebase.ServerValue.TIMESTAMP
+            };
+            servicioDesafios.updateDesafio($scope.key, datosResultado);
+
+            //Me cobro los créditos mío y del oponente
+            var monto = $scope.desafio.monto;
+            var nuevoCredito = parseInt(datosSesion.getUsuario().creditos) + parseInt($scope.desafio.monto)*2;
+            datosSesion.setCreditos(nuevoCredito);
+            console.info("monto: ", monto);
+            console.info("nuevoCredito: ", nuevoCredito);
+            console.info("datosSesion.getUsuario().creditos: ", datosSesion.getUsuario().creditos);
         }
         else{
-            //PERDÍ Y LE DOY LOS CRÉDITOS AL OPONENTE Y ACTUALIZO LA PARTIDA A FINALIZADA
-            alert("PERDISTE");
+            //PERDÍ (ganó el desafiante)
+            alert("PERDISTE :(");
+
+            //Actualizo el desafío a finalizado
+            var datosResultado = {
+                ganador: $scope.desafio.desafianteUid,
+                estado: "finalizado",
+                fechaFinalizado: Firebase.ServerValue.TIMESTAMP
+            };
+            servicioDesafios.updateDesafio($scope.key, datosResultado);
+
+            //Le sumo al oponente los créditos míos y suyos.
+            var uidOponente = $scope.desafio.desafianteUid;
+            var monto = $scope.desafio.monto;
+            firebase.database().ref("/users/"+uidOponente+"/creditos").once('value')
+              .then(function(dataSnapshot) {
+                var nuevoCredito = parseInt(dataSnapshot.val()) + parseInt(monto)*2;
+                firebase.database().ref("/users/"+uidOponente).update({
+                  creditos: nuevoCredito
+                });
+            });
         }
         $scope.VolverAlInicio();
     };
@@ -75,6 +110,14 @@ angular.module('desafios.controller', [])
     };
     //------------------------- CREAR DESAFÍO -------------------------//
     
+    $scope.CrearDesafio = function(){
+        $scope.bandera.estado = 'crearDesafio';
+        $scope.desafio.rango = {
+            min: '1',
+            max: datosSesion.getCreditos()
+        }
+    };
+
     $scope.Guardar = function(){
         console.info($scope.desafio);
         //Valido que estén monto y ubicación cargados
@@ -85,6 +128,10 @@ angular.module('desafios.controller', [])
             $scope.desafio.creadorUid = firebase.auth().currentUser.uid;
             //Subo la apuesta al Firebase
             servicioDesafios.pushDesafio($scope.desafio);
+            //Le saco el monto apostado de sus créditos para que no los vuelva a apostar
+            //var nuevoCredito = datosSesion.getUsuario().creditos - $scope.partida.monto;
+            var nuevoCredito = datosSesion.getCreditos() - $scope.desafio.monto;
+            datosSesion.setCreditos(nuevoCredito);
             //Reinicio valores
             for (var variableKey in $scope.desafio){
               if ($scope.desafio.hasOwnProperty(variableKey)){

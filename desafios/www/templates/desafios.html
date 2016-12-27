@@ -3,7 +3,7 @@
 
     <!-- INICIO -->
 
-    <div class="item item-balanced item-icon-left item-icon-right" ng-click="bandera.estado = 'crearDesafio';" ng-show="bandera.estado == 'inicio'">
+    <div class="item item-balanced item-icon-left item-icon-right" ng-click="CrearDesafio()" ng-show="bandera.estado == 'inicio'">
       <i class="icon ion-trophy"></i>
       Crear desafío
       <i class="icon ion-plus-round"></i>
@@ -88,7 +88,7 @@
       </div>
       <div class="item range">
         <i class="icon ion-minus-round"></i>
-        <input type="range" name="monto" ng-model="desafio.monto" min="0" max="100">
+        <input type="range" name="monto" ng-model="desafio.monto" min="{{desafio.rango.min}}" max="{{desafio.rango.max}}">
         <i class="icon ion-plus-round"></i>
       </div>
       <div class="item">

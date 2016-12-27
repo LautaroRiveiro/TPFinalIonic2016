@@ -64,6 +64,12 @@ angular.module('servicios', [])
         },
         setCreditos: function(value) {
             usuario.creditos = value;
+            ref.child(firebase.auth().currentUser.uid).update({
+                creditos: value
+            });
+        },
+        getCreditos: function() {
+            return usuario['creditos'];
         }
     };
 });
