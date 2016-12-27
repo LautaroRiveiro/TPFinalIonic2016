@@ -10,7 +10,7 @@
     </div>
     
     <ion-list ng-show="bandera.estado == 'inicio'">
-      <ion-item ng-repeat="desafio in desafios" ng-click="AmpliarDesafio(desafio.key)">
+      <ion-item ng-repeat="(key, desafio) in desafios" ng-click="AmpliarDesafio(key)">
         "{{desafio.texto}}" ({{desafio.monto}} créditos)
       </ion-item>
     </ion-list>
@@ -47,17 +47,17 @@
       <pre>{{desafio | json}}</pre>
     </div>
 
-    <!-- ACEPTAR DESAFÍO -->
+    <!-- AMPLIAR DESAFÍO -->
 
     <div ng-show="bandera.estado == 'desafio'">
       <div class="item item-divider" style="text-align: center;">
         Detalles
       </div>
       <div class="item">
-        <p>Usuario: {nombre}</p>
-        <p>Fecha: {fecha}</p>
-        <p>Monto: {monto}</p>
-        <p>Texto: {texto}</p>
+        <p>Usuario: {{desafio.creador}}</p>
+        <p>Fecha: {{desafio.fechaCreado}}</p>
+        <p>Monto: {{desafio.monto}}</p>
+        <p>Texto: {{desafio.texto}}</p>
       </div>
 
       <div class="item item-divider" style="text-align: center;">
