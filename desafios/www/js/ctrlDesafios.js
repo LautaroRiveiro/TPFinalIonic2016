@@ -1,12 +1,24 @@
 angular.module('desafios.controller', [])
 
-.controller('DesafiosCtrl', function($scope, $timeout, servicioDesafios, datosSesion) {
+.controller('DesafiosCtrl', function($scope, $timeout, servicioDesafios, datosSesion, $state) {
+    //$scope.datosSesion = {};
+    // if(datosSesion.getUsuario() == null){
+    //     $state.go("login");
+    // }
+    // else{
+    //     $scope.datosSesion = datosSesion.getUsuario();
+    //     console.info("datosSesion.getUsuario(): ELSE", datosSesion.getUsuario());
+    // }
+    $scope.datosSesion = {};
+    $scope.datosSesion.uid = firebase.auth().currentUser.uid;
+
     //Creo las variables necesarias
     $scope.desafio = {};
     //$scope.desafio.monto = "";
     //$scope.desafio.texto = ""
 
-    //Creo una bandera que determina qué mostrar: Inicio (inicio), Crear Partida (crearDesafio) y Ampliar Desafío (desafío).
+    //Creo una bandera que determina qué mostrar:
+    //Inicio (inicio), Buscar Desafío(buscar), Crear Desafío (crearDesafio) y Ampliar Desafío (desafío).
     $scope.bandera = {};
     $scope.bandera.estado = "inicio";
     
@@ -30,6 +42,37 @@ angular.module('desafios.controller', [])
     $scope.desafios = {};
     $scope.desafios = servicioDesafios.getDesafios();
 
+    //----------------------------- INICIO -----------------------------//
+    $scope.ResponderDesafio = function(key){
+        $scope.desafio = servicioDesafios.getDesafio(key);
+        $scope.bandera.estado = 'responderDesafio';
+        $scope.key = key;
+    };
+
+    $scope.Resultado = function(resultado){
+        if(resultado == "ganador"){
+            //GANÉ Y ME COBRO LOS CRÉDITOS Y ACTUALIZO LA PARTIDA A FINALIZADA
+            alert("GANASTE");
+        }
+        else{
+            //PERDÍ Y LE DOY LOS CRÉDITOS AL OPONENTE Y ACTUALIZO LA PARTIDA A FINALIZADA
+            alert("PERDISTE");
+        }
+        $scope.VolverAlInicio();
+    };
+
+    $scope.VolverAlInicio = function(){
+        //Reinicio valores
+        for (var variableKey in $scope.desafio){
+          if ($scope.desafio.hasOwnProperty(variableKey)){
+              delete $scope.desafio[variableKey];
+          }
+        }
+        $scope.key = "";
+        console.info("$scope.desafio (reiniciado): ", $scope.desafio);
+        //Vuelvo a las desafios creadas
+        $scope.bandera.estado = "inicio";
+    };
     //------------------------- CREAR DESAFÍO -------------------------//
     
     $scope.Guardar = function(){

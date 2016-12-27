@@ -9,8 +9,67 @@
       <i class="icon ion-plus-round"></i>
     </div>
     
-    <ion-list ng-show="bandera.estado == 'inicio'">
-      <ion-item ng-repeat="(key, desafio) in desafios" ng-click="AmpliarDesafio(key)">
+    <div class="item item-positive item-icon-left item-icon-right" ng-click="bandera.estado = 'buscar';" ng-show="bandera.estado == 'inicio'">
+      <i class="icon ion-trophy"></i>
+      Buscar partidas
+      <i class="icon ion-search"></i>
+    </div>
+
+    <div class="card" ng-show="bandera.estado == 'inicio'">
+      <div class="item item-divider" style="text-align: center;">
+        ESPERANDO TU RESPUESTA
+      </div>
+      <div class="item item-text-wrap">
+        <ion-list>
+          <ion-item ng-repeat="(key, desafio) in desafios" ng-if='desafio.estado=="aceptado" && desafio.creadorUid==datosSesion.uid' ng-click="ResponderDesafio(key)">
+            "{{desafio.texto}}" ({{desafio.monto}} créditos)
+          </ion-item>
+        </ion-list>
+      </div>
+      <div class="item item-divider">
+      </div>
+    </div>
+
+    <div class="card" ng-show="bandera.estado == 'inicio'">
+      <div class="item item-divider" style="text-align: center;">
+        SIN OPONENTE
+      </div>
+      <div class="item item-text-wrap">
+        <ion-list>
+          <ion-item ng-repeat="desafio in desafios" ng-if='desafio.estado=="esperando" && desafio.creadorUid==datosSesion.uid'>
+            "{{desafio.texto}}" ({{desafio.monto}} créditos)
+          </ion-item>
+        </ion-list>
+      </div>
+      <div class="item item-divider">
+      </div>
+    </div>
+
+    <div class="card" ng-show="bandera.estado == 'inicio'">
+      <div class="item item-divider" style="text-align: center;">
+        ESPERANDO RESPUESTA DEL OPONENTE
+      </div>
+      <div class="item item-text-wrap">
+        <ion-list>
+          <ion-item ng-repeat="desafio in desafios" ng-if='desafio.estado=="aceptado" && desafio.desafianteUid==datosSesion.uid'>
+            "{{desafio.texto}}" ({{desafio.monto}} créditos)
+          </ion-item>
+        </ion-list>
+      </div>
+      <div class="item item-divider">
+      </div>
+    </div>
+
+    <!-- BUSCAR DESAFÍO -->
+    
+    <div class="item item-assertive item-icon-left item-icon-right" ng-click="bandera.estado = 'inicio';" ng-show="bandera.estado == 'buscar'">
+      <i class="icon ion-trophy"></i>
+      Volver
+      <i class="icon ion-plus-round"></i>
+    </div>
+
+    <ion-list ng-show="bandera.estado == 'buscar'">
+      <ion-item ng-repeat="(key, desafio) in desafios" ng-click="AmpliarDesafio(key)" ng-if='desafio.estado=="esperando" && desafio.creadorUid!=datosSesion.uid'>
         "{{desafio.texto}}" ({{desafio.monto}} créditos)
       </ion-item>
     </ion-list>
@@ -68,6 +127,27 @@
         <a class="button button-balanced" ng-click="Aceptar()"><i class="icon ion-checkmark-round"></i></a>
       </div>
     </div>
+
+    <!-- RESPONDER DESAFÍO -->
+    <div ng-show="bandera.estado == 'responderDesafio'">
+      <div class="card">
+        <div class="item item-text-wrap">
+          <p style="font-style: italic; text-align: center; font-size: 175%;">"{{desafio.texto}}"</p>
+          <br>
+          <p style="text-align: center;">({{desafio.monto}} créditos)</p>
+        </div>
+      </div>
+
+      <div class="item item-divider" style="text-align: center;">
+        Resultado desafío
+      </div>
+      <div class="button-bar">
+        <a class="button button-positive" ng-click="Resultado('ganador')" style="border-right: white 0.5px solid;"><i class="icon ion-thumbsup"></i>&nbsp;&nbsp;GANÉ</a>
+        <a class="button button-positive" ng-click="Resultado('perdedor')" style="border-left: white 0.5px solid;">PERDÍ&nbsp;&nbsp;<i class="icon ion-thumbsdown"></i></a>
+      </div>
+      <a class="button button-block button-assertive" ng-click="VolverAlInicio()" style="margin-top: 0px;">VOLVER</a>
+    </div>
+
 
   </ion-content>
 </ion-view>
