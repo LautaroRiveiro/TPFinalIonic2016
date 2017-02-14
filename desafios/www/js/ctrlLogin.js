@@ -149,103 +149,69 @@ angular.module('login.controller', [])
 
 
     $scope.LoginGithub = function(){
-        $cordovaOauth.github("5d7d6cbf5d9612e59d34", "adaf6159b60aecf3100737e8dca984c52bcfbab7", ['email']).then(function(result) {
-            console.info("RESULT", result);
+
+        $cordovaOauth.github("5d7d6cbf5d9612e59d34", "adaf6159b60aecf3100737e8dca984c52bcfbab7", []).then(function(result) {
             var token = result.access_token;
             var credential = firebase.auth.GithubAuthProvider.credential(token);
-            console.info("var credential", credential)
-            firebase.auth().signInWithCredential(credential).catch(function(error) {
-              // Handle Errors here.
-              var errorCode = error.code;
-              var errorMessage = error.message;
-              // The email of the user's account used.
-              var email = error.email;
+            firebase.auth().signInWithCredential(credential)
+            .catch(function(error) {
+              console.info("error", error);
               // The firebase.auth.AuthCredential type that was used.
               var credential = error.credential;
-              // ...
+              console.info("error credential", error.credential);
             })
             .then(function(respuesta){
               console.info("respuesta", respuesta);
-              //ACÁ ENTRA SIEMPRE
-              //Pongo todo el código en un timeout para evitar problemas de sincronización
-              $timeout(function(){
-                //Evalúo si respuesta está cargada con los datos de sesión
-                if(respuesta != undefined)
-                {
-                  //SE LOGUEÓ
+              console.info("respuesta.providerData[0]",respuesta.providerData[0]);
+              //console.info("respuesta.providerData[0].email",respuesta.providerData[0].email);
+              console.info("respuesta.uid",respuesta.uid);              
+              
+              var providerData = respuesta.providerData[0];
+
+              if(respuesta.providerData[0].email == null){
+                //TIENE EL MAIL OCULTO EN LA CONFIGURACION DE GITHUB
+                console.info("EMAIL NULL (Lo tiene oculto en el Settings de su GitHub)");
+              }
+
+              var ref = new Firebase("https://tpfinalionic2016.firebaseio.com/users/"+respuesta.uid);
+              ref.once('value', function(snapshot) {
+                console.info("snapshot val", snapshot.val());
+
+                //VER SI EXISTE EL USUARIO EN DATABASE DE FIREBASE (por el UID) Y SI NO CREARLO
+                if (snapshot.val() == null) {
+                  var usuario = {
+                    nombre: providerData.displayName,
+                    creditos: 100,
+                    ingreso: Firebase.ServerValue.TIMESTAMP,
+                    email: providerData.email,
+                    foto: providerData.photoURL
+                  };
+                  //Agrego los datos del USER en una tabla paralela del Firebase, usando como key el UID.
+                  ref.set(usuario);
+                  console.info("USUARIO", usuario);
+                  //ref.child(respuesta.uid).set(usuario);
+                  // ref.child(respuesta.uid).update({nombre: providerData.displayName});
+                  // ref.child(respuesta.uid).update({creditos: 100});
+                  // ref.child(respuesta.uid).update({ingreso: Firebase.ServerValue.TIMESTAMP});
                   console.info("Bienvenido", respuesta);
-                  //Podría redirigir a otro state
-                  $state.go("app.perfil");
-                  //O también cambiar 'estado' para mostrar otra parte de código HTML en este mismo template
-                  //$scope.estado = 'logueado';
+                  //$state.go("app.sobremi");
                 }
-                else
-                {
-                  //NO SE LOGUEÓ
-                  console.info("Error de ingreso", respuesta);
-                }
-              }, 1000);
+              
+                $timeout(function(){
+                  //Evalúo si respuesta está cargada con los datos de sesión
+                  if(respuesta != undefined){
+                    //SE LOGUEÓ
+                    console.info("Bienvenido", respuesta);
+                    $state.go("app.perfil");
+                  }
+                  else{
+                    console.info("Error de ingreso", respuesta);
+                  }
+                }, 1000);
+              });
             });
         }, function(error) {
             console.info("ERROR", error);
         });;
     };
-/*
-    $scope.LoginGithub = function(){
-        //Creo objeto proveedor GitHub
-        var provider = new firebase.auth.GithubAuthProvider();
-        //Creo inicio de sesión con Github
-        firebase.auth().signInWithRedirect(provider);
-        //Evalúo resultado
-        firebase.auth().getRedirectResult().then(function(result) {
-          if (result.credential) {
-            // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-            var token = result.credential.accessToken;
-            // ...
-            var credential = firebase.auth.GithubAuthProvider.credential(token);
-            firebase.auth().signInWithCredential(credential).catch(function(error) {
-              // Handle Errors here.
-              var errorCode = error.code;
-              var errorMessage = error.message;
-              // The email of the user's account used.
-              var email = error.email;
-              // The firebase.auth.AuthCredential type that was used.
-              var credential = error.credential;
-              // ...
-            })
-            .then(function(respuesta){
-              //ACÁ ENTRA SIEMPRE
-              //Pongo todo el código en un timeout para evitar problemas de sincronización
-              $timeout(function(){
-                //Evalúo si respuesta está cargada con los datos de sesión
-                if(respuesta != undefined)
-                {
-                  //SE LOGUEÓ
-                  console.info("Bienvenido", respuesta);
-                  //Podría redirigir a otro state
-                  $state.go("app.perfil");
-                  //O también cambiar 'estado' para mostrar otra parte de código HTML en este mismo template
-                  //$scope.estado = 'logueado';
-                }
-                else
-                {
-                  //NO SE LOGUEÓ
-                  console.info("Error de ingreso", respuesta);
-                }
-              }, 1000);
-            });
-          }
-          // The signed-in user info.
-          var user = result.user;
-        }).catch(function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // The email of the user's account used.
-          var email = error.email;
-          // The firebase.auth.AuthCredential type that was used.
-          var credential = error.credential;
-          // ...
-        });
-    }*/
 });

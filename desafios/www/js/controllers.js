@@ -4,42 +4,24 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('PerfilCtrl', function($scope, $stateParams, $state, $timeout, $ionicHistory) {
-    
-    //Creo un objeto usuario para almacenar los datos del usuario logueado
+.controller('PerfilCtrl', function($scope, $stateParams, $state, $timeout, $ionicHistory, datosSesion) {
+    //Recupero los datos del usuario logueado
     $scope.usuario = {}
-    //var user = firebase.auth().currentUser;
+    $scope.usuario = datosSesion.getUsuario();
+    console.info("datosSesion.getUsuario()", datosSesion.getUsuario());
+
+    //Creo un Token a partir del firebase.auth().currentUser, para mostrar su contenido en el Perfil
     $scope.token = {};
     $scope.token.mostrar = false;
     $scope.token.info = firebase.auth().currentUser;
 
-    //Recupero de la tabla 'users' del firebase los datos del usuario a partir del UID del token
-    var ref = new Firebase("https://tpfinalionic2016.firebaseio.com/users");
-    ref.child(firebase.auth().currentUser.uid).on('child_added', function(data){
-      $timeout(function(){
-        console.info(data.val(), data.key());
-        var valor = data.val();
-        var campo = data.key();
-        if(campo == "ingreso"){
-            //var fecha = new Date(data.val().ingreso);
-            var fecha = new Date(valor);
-            console.info(fecha);
-            valor = fecha.getDate() + "/" + (fecha.getMonth()+1) + "/" + fecha.getFullYear();
-        }
-        $scope.usuario[campo] = valor;
-      });
-    });
-
     $scope.Logout = function() {
       firebase.auth().signOut()
       .then(function(){
-        //Estamos deslogueados
-        console.log("Adios");
         //CurrentUser tiene los datos de la sesión. Si no hay sesión activa, muestra null.
-        console.info(firebase.auth().currentUser);
+        console.log("Adios! firebase.auth().currentUser:", firebase.auth().currentUser);
         $timeout(function(){
-            //$scope.estado = 'login';
-            //$state.go('login');
+            //Voy a login y borro la caché
             $state.go('login', null, {reload: true});
             $ionicHistory.clearCache();
             //$window.location.reload(true);
@@ -62,7 +44,7 @@ angular.module('starter.controllers', [])
   ];
 })
 
-.controller('GenerarCtrl', function($scope, $stateParams) {
+.controller('GenerarCtrl', function($scope, $stateParams, datosSesion) {
     
     //Apunto a la tabla Créditos de Firebase
     var refCreditos = new Firebase("https://tpfinalionic2016.firebaseio.com/creditos");
@@ -99,7 +81,8 @@ angular.module('starter.controllers', [])
 
     $scope.GenerarCredito = function(){
       if($scope.credito.importe > 0 && $scope.credito.importe === parseInt($scope.credito.importe, 10)){
-        $scope.credito.usuario = "Lautaro";
+        $scope.credito.usuarioUid = datosSesion.getUid();
+        $scope.credito.usuario = datosSesion.getUsuario().nombre;
         $scope.credito.estado = "sinUsar";
         $scope.credito.fecha = Firebase.ServerValue.TIMESTAMP;
         console.info($scope.credito);
