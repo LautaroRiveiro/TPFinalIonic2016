@@ -65,7 +65,7 @@ angular.module('batallaNaval.controller', [])
     $scope.rango = {
       min: '1',
       max: datosSesion.getUsuario().creditos,
-      value: Math.round(parseFloat(datosSesion.getUsuario().creditos) / 2).toString()
+      value: Math.round(parseFloat(datosSesion.getUsuario().creditos) / 2)
     }
     console.info("rango",$scope.rango);
   };
@@ -114,6 +114,12 @@ angular.module('batallaNaval.controller', [])
   };
 
   $scope.AmpliarDesafio = function(partida){
+    //Valido que el usuario tenga la cantidad de créditos suficientes para poder aceptar la partida
+    console.info("CREDITOS",partida.monto,datosSesion.getCreditos());
+    if (partida.monto > datosSesion.getCreditos()){
+      alert("No disponés de suficientes créditos para aceptar esta partida ("+datosSesion.getCreditos()+" créditos)");
+      return;
+    }
     $scope.partida = jQuery.extend(true, {}, partida);
     $scope.key = $scope.partida.key;
     $scope.bandera.estado = 'partida';
@@ -184,6 +190,9 @@ angular.module('batallaNaval.controller', [])
     $scope.bandera.estado = 'jugar';
     $scope.key = $scope.partida.key;
     $scope.partida.miTurno = "";
+    for (var posicion in $scope.mostrarRadio){
+      $scope.mostrarRadio[posicion] = false;
+    };
     for (var variableKey in $scope.partida.turnos){
       if ($scope.partida.turnos[variableKey].jugador == firebase.auth().currentUser.uid){
           $scope.mostrarRadio["_"+$scope.partida.turnos[variableKey].ubicacion] = true;

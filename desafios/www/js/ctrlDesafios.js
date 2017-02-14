@@ -195,6 +195,12 @@ angular.module('desafios.controller', [])
         //Recupero el desafío indicado (key) a partir del service
         //(en el service le adapto la fecha porque no me salió acá por el tema de la llamada asincrónica)
         $scope.desafio = servicioDesafios.getDesafio(key);
+        //Valido que el usuario tenga la cantidad de créditos suficientes para poder aceptar la partida
+        console.info("CREDITOS",$scope.desafio.monto,datosSesion.getCreditos());
+        if ($scope.desafio.monto > datosSesion.getCreditos()){
+          alert("No disponés de suficientes créditos para aceptar este desafío ("+datosSesion.getCreditos()+" créditos)");
+          return;
+        }
         //Cambio la pantalla a Ampliar Desafío
         $scope.bandera.estado = 'desafio';
         //Guardo la key para después guardar los datos del desafiante en Firebase
@@ -218,6 +224,10 @@ angular.module('desafios.controller', [])
             fechaAceptado: Firebase.ServerValue.TIMESTAMP
         };
         servicioDesafios.updateDesafio($scope.key, datosDesafiante);
+
+        //Le saco el monto apostado de sus créditos para que no los vuelva a apostar
+        var nuevoCredito = datosSesion.getCreditos() - $scope.desafio.monto;
+        datosSesion.setCreditos(nuevoCredito);
 
         //Reinicio valores
         for (var variableKey in $scope.desafio){
