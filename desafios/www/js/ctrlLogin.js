@@ -1,6 +1,6 @@
 angular.module('login.controller', [])
 
-.controller('LoginCtrl', function($scope, $timeout, $state){
+.controller('LoginCtrl', function($scope, $timeout, $state, $cordovaOauth){
     // Form data for the login modal
     $scope.loginData = {};
     $scope.estado = {};
@@ -147,6 +147,50 @@ angular.module('login.controller', [])
 
     $scope.HabilitarLogin();
 
+
+    $scope.LoginGithub = function(){
+        $cordovaOauth.github("5d7d6cbf5d9612e59d34", "adaf6159b60aecf3100737e8dca984c52bcfbab7", ['email']).then(function(result) {
+            console.info("RESULT", result);
+            var token = result.access_token;
+            var credential = firebase.auth.GithubAuthProvider.credential(token);
+            console.info("var credential", credential)
+            firebase.auth().signInWithCredential(credential).catch(function(error) {
+              // Handle Errors here.
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              // The email of the user's account used.
+              var email = error.email;
+              // The firebase.auth.AuthCredential type that was used.
+              var credential = error.credential;
+              // ...
+            })
+            .then(function(respuesta){
+              console.info("respuesta", respuesta);
+              //ACÁ ENTRA SIEMPRE
+              //Pongo todo el código en un timeout para evitar problemas de sincronización
+              $timeout(function(){
+                //Evalúo si respuesta está cargada con los datos de sesión
+                if(respuesta != undefined)
+                {
+                  //SE LOGUEÓ
+                  console.info("Bienvenido", respuesta);
+                  //Podría redirigir a otro state
+                  $state.go("app.perfil");
+                  //O también cambiar 'estado' para mostrar otra parte de código HTML en este mismo template
+                  //$scope.estado = 'logueado';
+                }
+                else
+                {
+                  //NO SE LOGUEÓ
+                  console.info("Error de ingreso", respuesta);
+                }
+              }, 1000);
+            });
+        }, function(error) {
+            console.info("ERROR", error);
+        });;
+    };
+/*
     $scope.LoginGithub = function(){
         //Creo objeto proveedor GitHub
         var provider = new firebase.auth.GithubAuthProvider();
@@ -203,5 +247,5 @@ angular.module('login.controller', [])
           var credential = error.credential;
           // ...
         });
-    }
+    }*/
 });
