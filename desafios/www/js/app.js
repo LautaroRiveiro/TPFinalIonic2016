@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngCordovaOauth', 'starter.controllers', 'batallaNaval.controller', 'desafios.controller', 'login.controller', 'servicios', 'servicioDesafios'])
+angular.module('starter', ['ionic', 'ngCordova', 'ngCordovaOauth', 'starter.controllers', 'batallaNaval.controller', 'desafios.controller', 'login.controller', 'servicios', 'servicioDesafios'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -19,6 +19,8 @@ angular.module('starter', ['ionic', 'ngCordovaOauth', 'starter.controllers', 'ba
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    //$cordovaPlugin.someFunction().then(success, error);
   });
 })
 

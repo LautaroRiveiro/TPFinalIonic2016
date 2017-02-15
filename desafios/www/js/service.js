@@ -73,6 +73,12 @@ angular.module('servicios', [])
         },
         getUid: function () {
             return firebase.auth().currentUser.uid;
+        },
+        sumarCreditos: function(value) {
+            usuario.creditos += parseInt(value);
+            ref.child(firebase.auth().currentUser.uid).update({
+                creditos: usuario.creditos
+            });
         }
     };
 });

@@ -4,7 +4,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('PerfilCtrl', function($scope, $stateParams, $state, $timeout, $ionicHistory, datosSesion) {
+.controller('PerfilCtrl', function($scope, $stateParams, $state, $timeout, $ionicHistory, datosSesion, $cordovaBarcodeScanner) {
     //Recupero los datos del usuario logueado
     $scope.usuario = {}
     $scope.usuario = datosSesion.getUsuario();
@@ -31,6 +31,51 @@ angular.module('starter.controllers', [])
         console.log("Error");
       });
     };
+
+    $scope.CargarCredito = function(){
+        //Prendo el lector de QR
+        $cordovaBarcodeScanner.scan().then(
+        function(barcodeData) {
+            console.info("barcodeData", barcodeData);
+            
+            //Si cierro sin leer nada, devuelve cancelled true
+            if (barcodeData.cancelled){
+                console.info("La lectura fue cancelada. El plugin tiene desarrollado un botón para cancelar sin salir de la app");
+                return;
+            }
+
+            //Recupero el texto y evalúo si es la key de un crédito
+            var texto = barcodeData.text;
+            var ref = firebase.database().ref('creditos/'+texto);
+            ref.once('value', function(snapshot){
+                console.log("snapshot.val()", snapshot.val());
+                console.log("snapshot.key", snapshot.key);
+
+                if(snapshot.val() == null){
+                    console.info("El QR leido no corresponde a un crédito.");
+                    alert("El QR leido no corresponde a un crédito.");
+                }
+                else if(snapshot.val().disponible == false){
+                    console.info("El crédito ya fue utilizado.");
+                    alert("El crédito ya fue utilizado.");
+                }
+                else{
+                    console.info("Lectura QR OK. Serán acreditados "+snapshot.val().importe+" créditos.");
+                    alert("Lectura QR OK. Serán acreditados "+snapshot.val().importe+" créditos.");
+                    datosSesion.sumarCreditos(snapshot.val().importe);
+                    ref.update({
+                      disponible: false,
+                      fechaUsado: Firebase.ServerValue.TIMESTAMP,
+                      consumidor: $scope.usuario.nombre,
+                      consumidorUid: firebase.auth().currentUser.uid
+                    });
+                }
+            });
+
+        }, function(error) {
+            console.info("error", error);
+        });
+    }
 })
 
 .controller('DesafiosCtrl', function($scope) {
@@ -59,7 +104,7 @@ angular.module('starter.controllers', [])
     refCreditos.on('child_added', function(data){
       console.info(data.val());
       var creditoFB = data.val();
-      if(creditoFB.estado == "sinUsar")
+      if(creditoFB.disponible === true)
       {
         $scope.datos.cantidad ++;
         $scope.datos.importeTotal += creditoFB.importe;
@@ -70,7 +115,7 @@ angular.module('starter.controllers', [])
     refCreditos.on('child_changed', function(data){
       console.info("Cambio: ", data.val());
       var creditoFB = data.val();
-      if(creditoFB.estado == "usado")
+      if(creditoFB.disponible === false)
       {
         $scope.datos.cantidad --;
         $scope.datos.importeTotal -= creditoFB.importe;
@@ -81,10 +126,10 @@ angular.module('starter.controllers', [])
 
     $scope.GenerarCredito = function(){
       if($scope.credito.importe > 0 && $scope.credito.importe === parseInt($scope.credito.importe, 10)){
-        $scope.credito.usuarioUid = datosSesion.getUid();
-        $scope.credito.usuario = datosSesion.getUsuario().nombre;
-        $scope.credito.estado = "sinUsar";
-        $scope.credito.fecha = Firebase.ServerValue.TIMESTAMP;
+        $scope.credito.creadorUid = datosSesion.getUid();
+        $scope.credito.creador = datosSesion.getUsuario().nombre;
+        $scope.credito.disponible = true;
+        $scope.credito.fechaCreado = Firebase.ServerValue.TIMESTAMP;
         console.info($scope.credito);
         refCreditos.push($scope.credito);
         $scope.credito.importe = "";
