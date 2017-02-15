@@ -111,7 +111,22 @@ angular.module('login.controller', [])
         .then(function(){
             console.log("Revisar el correo");
         }, function(error){
-            console.info(error);
+            console.info("error", error);
+            //Muestro un alert con el tipo de error
+            switch(error.code){
+                case "auth/invalid-email":
+                  alert("Mail con formato incorrecto");
+                  break;
+                case "auth/user-not-found":
+                  alert("El usuario ingresado no existe");
+                  break;
+                case "auth/wrong-password":
+                  alert("Contraseña incorrecta");
+                  break;
+                default:
+                  alert("Error");
+                  break;
+            }
         });
     };
 

@@ -34,7 +34,7 @@
       "id": "phonegap-plugin-push",
       "locator": "phonegap-plugin-push",
       "variables": {
-        "SENDER_ID": "359101398196"
+        "SENDER_ID": "”359101398196”"
       }
     }
   ],

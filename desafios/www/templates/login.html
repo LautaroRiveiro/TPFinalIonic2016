@@ -1,30 +1,40 @@
 <ion-view cache-view="false">
-  <ion-header-bar  align-title="center" class="bar bar-header bar-positive">
+  <!-- <ion-header-bar  align-title="center" class="bar bar-header bar-positive">
     <h1 class="title">Bienvenido</h1>
-  </ion-header-bar>
-  <ion-content  scroll="false" style="background: url(img/login-background.jpg) no-repeat center center fixed; background-size: cover;">
-    <img src="img/barco.png" style="width: 50%;  max-width: 200px; display: block; margin-left: auto; margin-right: auto;">
+  </ion-header-bar> -->
+
+  <ion-content scroll="false" style="background: url(img/login-background.jpg) no-repeat center center fixed; background-size: cover;">
+    <img src="img/barco.png" style="width: 50%;  max-width: 200px; display: block; margin: 10px auto; margin-top: 0px; padding-top: 20px; margin-bottom: 10%;">
 
 
-    <form ng-submit="doLogin()" ng-if="estado.estado == 'login'">
-      <div class="list">
-        <label class="item item-input" style="background-color: #fff4e6">
-          <span class="input-label">E-mail</span>
-          <input type="text" ng-model="loginData.username">
+    <form ng-submit="doLogin()" ng-if="estado.estado == 'login'" style="margin-top: 5px;">
+      <div class="list list-inset" style="border-radius: 10px;">
+        <div class="item item-divider item-positive" style="text-align: center;">
+          BIENVENIDO!
+        </div>
+        <label class="item item-input item-calm">
+          <span class="input-label" style="font-size: 0.9em; color: white; font-weight: bold;">E-mail</span>
+          <input type="text" style="color: white;" ng-model="loginData.username">
         </label>
-        <label class="item item-input" style="background-color: #fff4e6">
-          <span class="input-label">Password</span>
-          <input type="password" ng-model="loginData.password">
-        </label>
-        <label class="item" style="background-color: #fff4e6">
-          <button class="button button-block button-balanced" type="submit" >INGRESAR</button>
+        <label class="item item-input item-calm">
+          <span class="input-label" style="font-size: 0.9em; color: white; font-weight: bold;">Clave</span>
+          <input type="password" style="color: white;" ng-model="loginData.password">
         </label>
       </div>
+        <!-- <label class="item" style="background-color: #fff4e6"> -->
+          <button class="button button-block button-balanced" type="submit" style="width: 90%;margin: auto;">INGRESAR</button>
+        <!-- </label> -->
+
     </form>
 
-    <label class="item" style="background-color: #fff4e6">
-      <button class="button button-block button-balanced" ng-click="LoginGithub()">GITHUB</button>
-    </label>
+<!--     <label class="item" style="background-color: #fff4e6"> -->
+      <button class="button button-block button-positive icon ion-social-github" ng-click="LoginGithub()" style="width: 90%; margin: 5px auto;" ng-if="estado.estado == 'login'">&nbsp;&nbsp;Login GitHub</button>
+    <!-- </label> -->
+
+    <div class="button-bar" ng-if="estado.estado == 'login'" style="width: 90%; margin: 10px auto;">
+      <a class="button button-small button-clear button-positive" href="#" ng-click="ResetearClave()" style="font-weight: bold; font-size: 0.95em; border-right: 0.5px darkgrey ;">Olvidé la contraseña</a>
+      <a class="button button-small button-clear button-positive" href="#" ng-click="HabilitarRegistro()" style="font-weight: bold; font-size: 0.95em; border-left: 0.5px darkgrey ;">Registrarse</a>
+    </div>
 
     <form ng-submit="SignUp()" ng-if="estado.estado == 'registro'">
       <div class="list">
@@ -51,10 +61,10 @@
       <button class="button button-block button-assertive" ng-click="HabilitarLogin()">VOLVER</button>
     </label>
 
-    <br>
+<!--     <br>
     <p style="text-align: center;" ng-if="estado.estado == 'login'"><a href="#" ng-click="ResetearClave()"><strong>Olvidé la contraseña</strong></a> | <a href="#"  ng-click="HabilitarRegistro()"><strong>Registrarse</strong></a></p>
   
-    <br>
+    <br> -->
     <div class="button-bar" style="position: fixed; bottom: 0;" ng-if="estado.estado == 'login'">
     <button class="button button-assertive" ng-click="Test('usuario')"><i class="ion-person-stalker"></i>&nbsp;Test Usuario</button>
     <button class="button button-assertive" ng-click="Test('admin')"><i class="ion-person-add"></i>&nbsp;Test Admin</button>

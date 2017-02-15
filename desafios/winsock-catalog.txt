@@ -1,0 +1,429 @@
+
+Entrada de proveedor de cat logo Winsock
+------------------------------------------------------
+Tipo de entrada:                    Proveedor de servicio de base
+Descripci¢n:                        MSAFD Tcpip [TCP/IP]
+Id. de proveedor:                   {E70F1AA0-AB8B-11CF-8CA3-00805F48A192}
+Ruta de proveedor:                  %SystemRoot%\system32\mswsock.dll
+Id. de entrada de cat logo:         1001
+Versi¢n:                            2
+Familia de direcciones:             2
+Longitud de direcci¢n m xima:       16
+Longitud de direcci¢n m¡nima:       16
+Tipo de socket:                     1
+Protocolo:                          6
+Marcas de servicio:             0x20066
+Longitud de cadena de protocolo:    1
+
+Entrada de proveedor de cat logo Winsock
+------------------------------------------------------
+Tipo de entrada:                    Proveedor de servicio de base
+Descripci¢n:                        MSAFD Tcpip [UDP/IP]
+Id. de proveedor:                   {E70F1AA0-AB8B-11CF-8CA3-00805F48A192}
+Ruta de proveedor:                  %SystemRoot%\system32\mswsock.dll
+Id. de entrada de cat logo:         1002
+Versi¢n:                            2
+Familia de direcciones:             2
+Longitud de direcci¢n m xima:       16
+Longitud de direcci¢n m¡nima:       16
+Tipo de socket:                     2
+Protocolo:                          17
+Marcas de servicio:             0x20609
+Longitud de cadena de protocolo:    1
+
+Entrada de proveedor de cat logo Winsock
+------------------------------------------------------
+Tipo de entrada:                    Proveedor de servicio de base
+Descripci¢n:                        MSAFD Tcpip [RAW/IP]
+Id. de proveedor:                   {E70F1AA0-AB8B-11CF-8CA3-00805F48A192}
+Ruta de proveedor:                  %SystemRoot%\system32\mswsock.dll
+Id. de entrada de cat logo:         1003
+Versi¢n:                            2
+Familia de direcciones:             2
+Longitud de direcci¢n m xima:       16
+Longitud de direcci¢n m¡nima:       16
+Tipo de socket:                     3
+Protocolo:                          0
+Marcas de servicio:             0x20609
+Longitud de cadena de protocolo:    1
+
+Entrada de proveedor de cat logo Winsock
+------------------------------------------------------
+Tipo de entrada:                    Proveedor de servicio de base
+Descripci¢n:                        MSAFD Tcpip [TCP/IPv6]
+Id. de proveedor:                   {F9EAB0C0-26D4-11D0-BBBF-00AA006C34E4}
+Ruta de proveedor:                  %SystemRoot%\system32\mswsock.dll
+Id. de entrada de cat logo:         1004
+Versi¢n:                            2
+Familia de direcciones:             23
+Longitud de direcci¢n m xima:       28
+Longitud de direcci¢n m¡nima:       28
+Tipo de socket:                     1
+Protocolo:                          6
+Marcas de servicio:             0x20066
+Longitud de cadena de protocolo:    1
+
+Entrada de proveedor de cat logo Winsock
+------------------------------------------------------
+Tipo de entrada:                    Proveedor de servicio de base
+Descripci¢n:                        MSAFD Tcpip [UDP/IPv6]
+Id. de proveedor:                   {F9EAB0C0-26D4-11D0-BBBF-00AA006C34E4}
+Ruta de proveedor:                  %SystemRoot%\system32\mswsock.dll
+Id. de entrada de cat logo:         1005
+Versi¢n:                            2
+Familia de direcciones:             23
+Longitud de direcci¢n m xima:       28
+Longitud de direcci¢n m¡nima:       28
+Tipo de socket:                     2
+Protocolo:                          17
+Marcas de servicio:             0x20609
+Longitud de cadena de protocolo:    1
+
+Entrada de proveedor de cat logo Winsock
+------------------------------------------------------
+Tipo de entrada:                    Proveedor de servicio de base
+Descripci¢n:                        MSAFD Tcpip [RAW/IPv6]
+Id. de proveedor:                   {F9EAB0C0-26D4-11D0-BBBF-00AA006C34E4}
+Ruta de proveedor:                  %SystemRoot%\system32\mswsock.dll
+Id. de entrada de cat logo:         1006
+Versi¢n:                            2
+Familia de direcciones:             23
+Longitud de direcci¢n m xima:       28
+Longitud de direcci¢n m¡nima:       28
+Tipo de socket:                     3
+Protocolo:                          0
+Marcas de servicio:             0x20609
+Longitud de cadena de protocolo:    1
+
+Entrada de proveedor de cat logo Winsock
+------------------------------------------------------
+Tipo de entrada:                    Proveedor de servicio de base
+Descripci¢n:                        Proveedor de servicios RSVP TCPv6
+Id. de proveedor:                   {9D60A9E0-337A-11D0-BD88-0000C082E69A}
+Ruta de proveedor:                  %SystemRoot%\system32\mswsock.dll
+Id. de entrada de cat logo:         1007
+Versi¢n:                            2
+Familia de direcciones:             23
+Longitud de direcci¢n m xima:       28
+Longitud de direcci¢n m¡nima:       28
+Tipo de socket:                     1
+Protocolo:                          6
+Marcas de servicio:             0x22066
+Longitud de cadena de protocolo:    1
+
+Entrada de proveedor de cat logo Winsock
+------------------------------------------------------
+Tipo de entrada:                    Proveedor de servicio de base
+Descripci¢n:                        Proveedor de servicios RSVP TCP
+Id. de proveedor:                   {9D60A9E0-337A-11D0-BD88-0000C082E69A}
+Ruta de proveedor:                  %SystemRoot%\system32\mswsock.dll
+Id. de entrada de cat logo:         1008
+Versi¢n:                            2
+Familia de direcciones:             2
+Longitud de direcci¢n m xima:       16
+Longitud de direcci¢n m¡nima:       16
+Tipo de socket:                     1
+Protocolo:                          6
+Marcas de servicio:             0x22066
+Longitud de cadena de protocolo:    1
+
+Entrada de proveedor de cat logo Winsock
+------------------------------------------------------
+Tipo de entrada:                    Proveedor de servicio de base
+Descripci¢n:                        Proveedor de servicios RSVP UDPv6
+Id. de proveedor:                   {9D60A9E0-337A-11D0-BD88-0000C082E69A}
+Ruta de proveedor:                  %SystemRoot%\system32\mswsock.dll
+Id. de entrada de cat logo:         1009
+Versi¢n:                            2
+Familia de direcciones:             23
+Longitud de direcci¢n m xima:       28
+Longitud de direcci¢n m¡nima:       28
+Tipo de socket:                     2
+Protocolo:                          17
+Marcas de servicio:             0x22609
+Longitud de cadena de protocolo:    1
+
+Entrada de proveedor de cat logo Winsock
+------------------------------------------------------
+Tipo de entrada:                    Proveedor de servicio de base
+Descripci¢n:                        Proveedor de servicios RSVP UDP
+Id. de proveedor:                   {9D60A9E0-337A-11D0-BD88-0000C082E69A}
+Ruta de proveedor:                  %SystemRoot%\system32\mswsock.dll
+Id. de entrada de cat logo:         1010
+Versi¢n:                            2
+Familia de direcciones:             2
+Longitud de direcci¢n m xima:       16
+Longitud de direcci¢n m¡nima:       16
+Tipo de socket:                     2
+Protocolo:                          17
+Marcas de servicio:             0x22609
+Longitud de cadena de protocolo:    1
+
+Entrada de proveedor de cat logo Winsock
+------------------------------------------------------
+Tipo de entrada:                    Proveedor de servicio de base (32)
+Descripci¢n:                        MSAFD Tcpip [TCP/IP]
+Id. de proveedor:                   {E70F1AA0-AB8B-11CF-8CA3-00805F48A192}
+Ruta de proveedor:                  %SystemRoot%\system32\mswsock.dll
+Id. de entrada de cat logo:         1001
+Versi¢n:                            2
+Familia de direcciones:             2
+Longitud de direcci¢n m xima:       16
+Longitud de direcci¢n m¡nima:       16
+Tipo de socket:                     1
+Protocolo:                          6
+Marcas de servicio:             0x20066
+Longitud de cadena de protocolo:    1
+
+Entrada de proveedor de cat logo Winsock
+------------------------------------------------------
+Tipo de entrada:                    Proveedor de servicio de base (32)
+Descripci¢n:                        MSAFD Tcpip [UDP/IP]
+Id. de proveedor:                   {E70F1AA0-AB8B-11CF-8CA3-00805F48A192}
+Ruta de proveedor:                  %SystemRoot%\system32\mswsock.dll
+Id. de entrada de cat logo:         1002
+Versi¢n:                            2
+Familia de direcciones:             2
+Longitud de direcci¢n m xima:       16
+Longitud de direcci¢n m¡nima:       16
+Tipo de socket:                     2
+Protocolo:                          17
+Marcas de servicio:             0x20609
+Longitud de cadena de protocolo:    1
+
+Entrada de proveedor de cat logo Winsock
+------------------------------------------------------
+Tipo de entrada:                    Proveedor de servicio de base (32)
+Descripci¢n:                        MSAFD Tcpip [RAW/IP]
+Id. de proveedor:                   {E70F1AA0-AB8B-11CF-8CA3-00805F48A192}
+Ruta de proveedor:                  %SystemRoot%\system32\mswsock.dll
+Id. de entrada de cat logo:         1003
+Versi¢n:                            2
+Familia de direcciones:             2
+Longitud de direcci¢n m xima:       16
+Longitud de direcci¢n m¡nima:       16
+Tipo de socket:                     3
+Protocolo:                          0
+Marcas de servicio:             0x20609
+Longitud de cadena de protocolo:    1
+
+Entrada de proveedor de cat logo Winsock
+------------------------------------------------------
+Tipo de entrada:                    Proveedor de servicio de base (32)
+Descripci¢n:                        MSAFD Tcpip [TCP/IPv6]
+Id. de proveedor:                   {F9EAB0C0-26D4-11D0-BBBF-00AA006C34E4}
+Ruta de proveedor:                  %SystemRoot%\system32\mswsock.dll
+Id. de entrada de cat logo:         1004
+Versi¢n:                            2
+Familia de direcciones:             23
+Longitud de direcci¢n m xima:       28
+Longitud de direcci¢n m¡nima:       28
+Tipo de socket:                     1
+Protocolo:                          6
+Marcas de servicio:             0x20066
+Longitud de cadena de protocolo:    1
+
+Entrada de proveedor de cat logo Winsock
+------------------------------------------------------
+Tipo de entrada:                    Proveedor de servicio de base (32)
+Descripci¢n:                        MSAFD Tcpip [UDP/IPv6]
+Id. de proveedor:                   {F9EAB0C0-26D4-11D0-BBBF-00AA006C34E4}
+Ruta de proveedor:                  %SystemRoot%\system32\mswsock.dll
+Id. de entrada de cat logo:         1005
+Versi¢n:                            2
+Familia de direcciones:             23
+Longitud de direcci¢n m xima:       28
+Longitud de direcci¢n m¡nima:       28
+Tipo de socket:                     2
+Protocolo:                          17
+Marcas de servicio:             0x20609
+Longitud de cadena de protocolo:    1
+
+Entrada de proveedor de cat logo Winsock
+------------------------------------------------------
+Tipo de entrada:                    Proveedor de servicio de base (32)
+Descripci¢n:                        MSAFD Tcpip [RAW/IPv6]
+Id. de proveedor:                   {F9EAB0C0-26D4-11D0-BBBF-00AA006C34E4}
+Ruta de proveedor:                  %SystemRoot%\system32\mswsock.dll
+Id. de entrada de cat logo:         1006
+Versi¢n:                            2
+Familia de direcciones:             23
+Longitud de direcci¢n m xima:       28
+Longitud de direcci¢n m¡nima:       28
+Tipo de socket:                     3
+Protocolo:                          0
+Marcas de servicio:             0x20609
+Longitud de cadena de protocolo:    1
+
+Entrada de proveedor de cat logo Winsock
+------------------------------------------------------
+Tipo de entrada:                    Proveedor de servicio de base (32)
+Descripci¢n:                        Proveedor de servicios RSVP TCPv6
+Id. de proveedor:                   {9D60A9E0-337A-11D0-BD88-0000C082E69A}
+Ruta de proveedor:                  %SystemRoot%\system32\mswsock.dll
+Id. de entrada de cat logo:         1007
+Versi¢n:                            2
+Familia de direcciones:             23
+Longitud de direcci¢n m xima:       28
+Longitud de direcci¢n m¡nima:       28
+Tipo de socket:                     1
+Protocolo:                          6
+Marcas de servicio:             0x22066
+Longitud de cadena de protocolo:    1
+
+Entrada de proveedor de cat logo Winsock
+------------------------------------------------------
+Tipo de entrada:                    Proveedor de servicio de base (32)
+Descripci¢n:                        Proveedor de servicios RSVP TCP
+Id. de proveedor:                   {9D60A9E0-337A-11D0-BD88-0000C082E69A}
+Ruta de proveedor:                  %SystemRoot%\system32\mswsock.dll
+Id. de entrada de cat logo:         1008
+Versi¢n:                            2
+Familia de direcciones:             2
+Longitud de direcci¢n m xima:       16
+Longitud de direcci¢n m¡nima:       16
+Tipo de socket:                     1
+Protocolo:                          6
+Marcas de servicio:             0x22066
+Longitud de cadena de protocolo:    1
+
+Entrada de proveedor de cat logo Winsock
+------------------------------------------------------
+Tipo de entrada:                    Proveedor de servicio de base (32)
+Descripci¢n:                        Proveedor de servicios RSVP UDPv6
+Id. de proveedor:                   {9D60A9E0-337A-11D0-BD88-0000C082E69A}
+Ruta de proveedor:                  %SystemRoot%\system32\mswsock.dll
+Id. de entrada de cat logo:         1009
+Versi¢n:                            2
+Familia de direcciones:             23
+Longitud de direcci¢n m xima:       28
+Longitud de direcci¢n m¡nima:       28
+Tipo de socket:                     2
+Protocolo:                          17
+Marcas de servicio:             0x22609
+Longitud de cadena de protocolo:    1
+
+Entrada de proveedor de cat logo Winsock
+------------------------------------------------------
+Tipo de entrada:                    Proveedor de servicio de base (32)
+Descripci¢n:                        Proveedor de servicios RSVP UDP
+Id. de proveedor:                   {9D60A9E0-337A-11D0-BD88-0000C082E69A}
+Ruta de proveedor:                  %SystemRoot%\system32\mswsock.dll
+Id. de entrada de cat logo:         1010
+Versi¢n:                            2
+Familia de direcciones:             2
+Longitud de direcci¢n m xima:       16
+Longitud de direcci¢n m¡nima:       16
+Tipo de socket:                     2
+Protocolo:                          17
+Marcas de servicio:             0x22609
+Longitud de cadena de protocolo:    1
+
+Entrada de proveedor de espacio de nombres
+------------------------------------------------------
+Descripci¢n:                       Espacio de nombres para el reconocimiento de ubicaci¢n de red heredado (NLAv1)
+Id. del proveedor:                 {6642243A-3BA8-4AA6-BAA5-2E0BD71FDD83}
+Espacio de nombre:                 15
+Activo:                            1
+Versi¢n:                           0
+
+
+Entrada de proveedor de espacio de nombres
+------------------------------------------------------
+Descripci¢n:                       Proveedor de correcciones de compatibilidad (shim) de nomenclaturas de correo electr¢nico
+Id. del proveedor:                 {964ACBA2-B2BC-40EB-8C6A-A6DB40161CAE}
+Espacio de nombre:                 37
+Activo:                            1
+Versi¢n:                           0
+
+
+Entrada de proveedor de espacio de nombres
+------------------------------------------------------
+Descripci¢n:                       Proveedor de espacio de nombres para la nube PNRP
+Id. del proveedor:                 {03FE89CE-766D-4976-B9C1-BB9BC42C7B4D}
+Espacio de nombre:                 39
+Activo:                            1
+Versi¢n:                           0
+
+
+Entrada de proveedor de espacio de nombres
+------------------------------------------------------
+Descripci¢n:                       Proveedor de espacio de nombres para el nombre PNRP
+Id. del proveedor:                 {03FE89CD-766D-4976-B9C1-BB9BC42C7B4D}
+Espacio de nombre:                 38
+Activo:                            1
+Versi¢n:                           0
+
+
+Entrada de proveedor de espacio de nombres
+------------------------------------------------------
+Descripci¢n:                       Tcpip
+Id. del proveedor:                 {22059D40-7E9E-11CF-AE5A-00AA00A7112B}
+Espacio de nombre:                 12
+Activo:                            1
+Versi¢n:                           0
+
+
+Entrada de proveedor de espacio de nombres
+------------------------------------------------------
+Descripci¢n:                       NTDS
+Id. del proveedor:                 {3B2637EE-E580-11CF-A555-00C04FD8D4AC}
+Espacio de nombre:                 32
+Activo:                            1
+Versi¢n:                           0
+
+
+Entrada de proveedor de espacio de nombres (32)
+------------------------------------------------------
+Descripci¢n:                       Espacio de nombres para el reconocimiento de ubicaci¢n de red heredado (NLAv1)
+Id. del proveedor:                 {6642243A-3BA8-4AA6-BAA5-2E0BD71FDD83}
+Espacio de nombre:                 15
+Activo:                            1
+Versi¢n:                           0
+
+
+Entrada de proveedor de espacio de nombres (32)
+------------------------------------------------------
+Descripci¢n:                       Proveedor de correcciones de compatibilidad (shim) de nomenclaturas de correo electr¢nico
+Id. del proveedor:                 {964ACBA2-B2BC-40EB-8C6A-A6DB40161CAE}
+Espacio de nombre:                 37
+Activo:                            1
+Versi¢n:                           0
+
+
+Entrada de proveedor de espacio de nombres (32)
+------------------------------------------------------
+Descripci¢n:                       Proveedor de espacio de nombres para la nube PNRP
+Id. del proveedor:                 {03FE89CE-766D-4976-B9C1-BB9BC42C7B4D}
+Espacio de nombre:                 39
+Activo:                            1
+Versi¢n:                           0
+
+
+Entrada de proveedor de espacio de nombres (32)
+------------------------------------------------------
+Descripci¢n:                       Proveedor de espacio de nombres para el nombre PNRP
+Id. del proveedor:                 {03FE89CD-766D-4976-B9C1-BB9BC42C7B4D}
+Espacio de nombre:                 38
+Activo:                            1
+Versi¢n:                           0
+
+
+Entrada de proveedor de espacio de nombres (32)
+------------------------------------------------------
+Descripci¢n:                       Tcpip
+Id. del proveedor:                 {22059D40-7E9E-11CF-AE5A-00AA00A7112B}
+Espacio de nombre:                 12
+Activo:                            1
+Versi¢n:                           0
+
+
+Entrada de proveedor de espacio de nombres (32)
+------------------------------------------------------
+Descripci¢n:                       NTDS
+Id. del proveedor:                 {3B2637EE-E580-11CF-A555-00C04FD8D4AC}
+Espacio de nombre:                 32
+Activo:                            1
+Versi¢n:                           0
+
+
