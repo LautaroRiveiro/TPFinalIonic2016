@@ -29,7 +29,14 @@
       "locator": "https://github.com/phonegap/phonegap-plugin-barcodescanner.git",
       "id": "phonegap-plugin-barcodescanner"
     },
-    "cordova-plugin-compat"
+    "cordova-plugin-compat",
+    {
+      "id": "phonegap-plugin-push",
+      "locator": "phonegap-plugin-push",
+      "variables": {
+        "SENDER_ID": "359101398196"
+      }
+    }
   ],
   "cordovaPlatforms": [
     {

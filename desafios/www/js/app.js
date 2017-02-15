@@ -21,6 +21,33 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngCordovaOauth', 'starter.cont
     }
 
     //$cordovaPlugin.someFunction().then(success, error);
+    
+    //Configuración inicial cada vez que se inicia la App
+    var push = PushNotification.init({
+      android: {
+        //Es el mismo SENDER ID de siempre y es el único dato obligatorio en el init.
+        senderID: "359101398196"
+      },
+      ios: {},
+      windows: {}
+    });
+
+    //Cuando se registra el ID del usuario
+    push.on('registration', function(data) {
+      console.log("registrationId:" + data.registrationId);
+      console.info("push", push);
+    });
+
+    //Cuando le llega una notificación al usuario
+    push.on('notification', function(data) {
+      console.log("Nueva notificacion", data);
+    });
+
+    //Cuando se produce un error
+    push.on('error', function(e) {
+      console.log(e.message);
+    });
+
   });
 })
 
