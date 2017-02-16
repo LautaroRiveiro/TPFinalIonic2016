@@ -4,7 +4,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('PerfilCtrl', function($scope, $stateParams, $state, $timeout, $ionicHistory, datosSesion, $cordovaBarcodeScanner, $http) {
+.controller('PerfilCtrl', function($scope, $stateParams, $state, $timeout, $ionicHistory, datosSesion, $cordovaBarcodeScanner, $http, sPlugins) {
     //Recupero los datos del usuario logueado
     $scope.usuario = {}
     $scope.usuario = datosSesion.getUsuario();
@@ -61,6 +61,7 @@ angular.module('starter.controllers', [])
                 }
                 else{
                     console.info("Lectura QR OK. Serán acreditados "+snapshot.val().importe+" créditos.");
+                    sPlugins.Sonido("creditos");
                     alert("Lectura QR OK. Serán acreditados "+snapshot.val().importe+" créditos.");
                     datosSesion.sumarCreditos(snapshot.val().importe);
                     ref.update({

@@ -1,11 +1,12 @@
 angular.module('login.controller', [])
 
-.controller('LoginCtrl', function($scope, $timeout, $state, $cordovaOauth){
+.controller('LoginCtrl', function($scope, $timeout, $state, $cordovaOauth, sPlugins, $ionicPlatform){
+  
+    sPlugins.Musica('intro');
+    
     // Form data for the login modal
     $scope.loginData = {};
     $scope.estado = {};
-    
-
 
     $scope.Logout = function() {
       firebase.auth().signOut()
@@ -47,7 +48,8 @@ angular.module('login.controller', [])
               ref.child(respuesta.uid).update({creditos: 100});
               ref.child(respuesta.uid).update({ingreso: Firebase.ServerValue.TIMESTAMP});
               console.info("Bienvenido", respuesta);
-              $state.go("app.sobremi");
+              sPlugins.PararMusica("intro");
+              $state.go("app.perfil");
             }
           }, 1000);
         });
@@ -93,6 +95,7 @@ angular.module('login.controller', [])
             //SE LOGUEÓ
             console.info("Bienvenido", respuesta);
             //Podría redirigir a otro state
+            sPlugins.PararMusica("intro");
             $state.go("app.perfil");
             //O también cambiar 'estado' para mostrar otra parte de código HTML en este mismo template
             //$scope.estado = 'logueado';
@@ -217,6 +220,7 @@ angular.module('login.controller', [])
                   if(respuesta != undefined){
                     //SE LOGUEÓ
                     console.info("Bienvenido", respuesta);
+                    sPlugins.PararMusica("intro");
                     $state.go("app.perfil");
                   }
                   else{

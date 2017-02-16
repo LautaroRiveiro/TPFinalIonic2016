@@ -1,6 +1,6 @@
 angular.module('desafios.controller', [])
 
-.controller('DesafiosCtrl', function($scope, $timeout, servicioDesafios, datosSesion, $state) {
+.controller('DesafiosCtrl', function($scope, $timeout, servicioDesafios, datosSesion, $state, sPlugins) {
     //$scope.datosSesion = {};
     // if(datosSesion.getUsuario() == null){
     //     $state.go("login");
@@ -51,6 +51,8 @@ angular.module('desafios.controller', [])
 
     $scope.Resultado = function(resultado){
         if(resultado == "ganador"){
+            sPlugins.Sonido("triunfo");
+            
             //GANÉ (ganó el creador)
             alert("GANASTE!\nFueron sumados los créditos a tu cuenta.");
 
@@ -71,6 +73,8 @@ angular.module('desafios.controller', [])
             console.info("datosSesion.getUsuario().creditos: ", datosSesion.getUsuario().creditos);
         }
         else{
+            sPlugins.Sonido("derrota");
+
             //PERDÍ (ganó el desafiante)
             alert("PERDISTE :(");
 

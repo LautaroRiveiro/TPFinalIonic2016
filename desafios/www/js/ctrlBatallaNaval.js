@@ -1,6 +1,6 @@
 angular.module('batallaNaval.controller', [])
 
-.controller('BatallaNavalCtrl', function($scope, $timeout, datosSesion, $state) {
+.controller('BatallaNavalCtrl', function($scope, $timeout, datosSesion, $state, sPlugins) {
   //Creo las variables necesarias
   $scope.partida = {};
   $scope.bandera = {};
@@ -256,6 +256,7 @@ angular.module('batallaNaval.controller', [])
               //MUEVO LA PARTIDA A LAS FINALIZADAS Y DEVUELVO LOS CREDITOS
             }
             else{*/
+              sPlugins.Sonido("fuego");
               alert("ACERTASTE. Esperar por el turno del creador.");
               firebase.database().ref("/partidas/"+$scope.key).update({
                 ganador: firebase.auth().currentUser.uid
@@ -268,12 +269,14 @@ angular.module('batallaNaval.controller', [])
               //MUEVO LA PARTIDA A LAS FINALIZADAS Y ENTREGO LOS CREDITOS
             }
             else{*/
+              sPlugins.Sonido("agua");
               alert("AGUA");
             //}
          };
       }
       else{
          if($scope.partida.miTurno == $scope.partida.ubicacionDesafiante){ //Yo soy el CREADOR
+            sPlugins.Sonido("fuego");
             if($scope.partida.ganador == uidOponente){
               alert("EMPATASTE");
               firebase.database().ref("/partidas/"+$scope.key).update({
@@ -321,6 +324,7 @@ angular.module('batallaNaval.controller', [])
             }
          }
          else{
+            sPlugins.Sonido("agua");
             if($scope.partida.ganador == uidOponente){
               alert("PERDISTE");
               //MUEVO LA PARTIDA A LAS FINALIZADAS Y ENTREGO LOS CREDITOS AL OPONENTE
