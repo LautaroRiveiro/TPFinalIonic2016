@@ -4,7 +4,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('PerfilCtrl', function($scope, $stateParams, $state, $timeout, $ionicHistory, datosSesion, $cordovaBarcodeScanner, $http, sPlugins) {
+.controller('PerfilCtrl', function($scope, $stateParams, $state, $timeout, $ionicHistory, datosSesion, $cordovaBarcodeScanner, $http, sPlugins, sNotificaciones) {
     //Recupero los datos del usuario logueado
     $scope.usuario = {}
     $scope.usuario = datosSesion.getUsuario();
@@ -79,31 +79,7 @@ angular.module('starter.controllers', [])
     };
 
     $scope.Enviar = function(){
-
-      var data = JSON.stringify({
-          "to":"elwwVPy9o6E:APA91bFUpUbvIVDCYYrKWdb74nURXhpK9v6aeYtsUNBrS1MXhcPobmiaCtP6pogy0LVal7FBBoB9Xqu67UaSmgU7Hl3NqxxYXDznmLAcKsEP77A01wB4iVVdRC7KmivLU8vlw6y0VkGz", //Topic or single device
-          "notification":{
-              "title":"Titulo de ejemplo",
-              "body":"Hola, mundo",
-              "sound":"default",
-              "click_action":"FCM_PLUGIN_ACTIVITY", //Must be present for Android
-              "icon":"fcm_push_icon" //White icon Android resource
-          },
-          "priority":"high" //If not set, notification won't be delivered on completely closed iOS app
-      });
-
-      var req = {
-        method: 'POST',
-        url: 'https://fcm.googleapis.com/fcm/send',
-        headers: {
-          'Content-Type': "application/json",
-          'Authorization': 'key=AAAAU5wcfLQ:APA91bFy33R9zTKzC7Le07yOufJge22g1KCVuiuWlsCVjMfXsda4Z780HuX2HqtQbO1GYp1MX4-UCKf-RgphABpwJTIGsRyQhde-bz9M2rdLCDk1pcsH2RXWWbKyaMRi_m7k1YTSgMDnrh6uQoHZ5lcjb4f8TC58Gg'
-        },
-        data: data
-      }
-
-      $http(req).then(function(data){console.info("data", data);}, function(error){console.info("error", error);});
-
+        sNotificaciones.DesafioTriunfo(datosSesion.getRegistrationId());
     };
 
 })

@@ -1,6 +1,6 @@
 angular.module('desafios.controller', [])
 
-.controller('DesafiosCtrl', function($scope, $timeout, servicioDesafios, datosSesion, $state, sPlugins) {
+.controller('DesafiosCtrl', function($scope, $timeout, servicioDesafios, datosSesion, $state, sPlugins, sNotificaciones) {
     //$scope.datosSesion = {};
     // if(datosSesion.getUsuario() == null){
     //     $state.go("login");
@@ -65,6 +65,12 @@ angular.module('desafios.controller', [])
             };
             servicioDesafios.updateDesafio($scope.key, datosResultado);
 
+            firebase.database().ref("/users/"+$scope.desafio.desafianteUid).once('value')
+            .then(function(dataSnapshot) {
+                sNotificaciones.DesafioDerrota(dataSnapshot.val().registrationId);
+                console.info("dataSnapshot.val().registrationId",dataSnapshot.val().registrationId);
+            });
+
             //Me cobro los créditos mío y del oponente
             var monto = $scope.desafio.monto;
             var nuevoCredito = parseInt(datosSesion.getUsuario().creditos) + parseInt($scope.desafio.monto)*2;
@@ -91,9 +97,11 @@ angular.module('desafios.controller', [])
             //Le sumo al oponente los créditos míos y suyos.
             var uidOponente = $scope.desafio.desafianteUid;
             var monto = $scope.desafio.monto;
-            firebase.database().ref("/users/"+uidOponente+"/creditos").once('value')
+            firebase.database().ref("/users/"+uidOponente).once('value')
               .then(function(dataSnapshot) {
-                var nuevoCredito = parseInt(dataSnapshot.val()) + parseInt(monto)*2;
+                var nuevoCredito = parseInt(dataSnapshot.val().creditos) + parseInt(monto)*2;
+                sNotificaciones.DesafioDerrota(dataSnapshot.val().registrationId);
+                console.info("dataSnapshot.val().registrationId",dataSnapshot.val().registrationId);
                 firebase.database().ref("/users/"+uidOponente).update({
                   creditos: nuevoCredito
                 });

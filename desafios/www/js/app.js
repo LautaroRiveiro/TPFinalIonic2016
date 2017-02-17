@@ -4,7 +4,18 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngCordova', 'ngCordovaOauth', 'starter.controllers', 'batallaNaval.controller', 'desafios.controller', 'login.controller', 'servicios', 'servicioPlugins', 'servicioDesafios'])
+angular.module('starter', [
+  'ionic', 
+  'ngCordova', 
+  'ngCordovaOauth', 
+  'starter.controllers', 
+  'batallaNaval.controller', 
+  'desafios.controller', 
+  'login.controller', 
+  'servicios', 
+  'servicioPlugins', 
+  'servicioNotificaciones', 
+  'servicioDesafios'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -19,62 +30,6 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngCordovaOauth', 'starter.cont
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-
-    //$cordovaPlugin.someFunction().then(success, error);
-    
-    //------------------------------------- PUSH NOTIFICATION ----------------------------------------//
-    //Configuración inicial cada vez que se inicia la App
-    var push = PushNotification.init({
-      android: {
-        //Es el mismo SENDER ID de siempre y es el único dato obligatorio en el init.
-        senderID: "359101398196"
-      },
-      ios: {},
-      windows: {}
-    });
-
-    //Cuando se registra el ID del usuario
-    push.on('registration', function(data) {
-      console.log("registrationId:" + data.registrationId);
-      console.info("push", push);
-    });
-
-    //Cuando le llega una notificación al usuario
-    push.on('notification', function(data) {
-      console.log("Nueva notificacion", data);
-    });
-
-    //Cuando se produce un error
-    push.on('error', function(e) {
-      console.log(e.message);
-    });
-
-    // //------------------------------------------ AUDIOS ---------------------------------------------//
-    // if( window.plugins && window.plugins.NativeAudio ) {
-    //     window.plugins.NativeAudio.preloadSimple( 'agua', 'audio/agua.mp3', function(msg){
-    //     }, function(msg){
-    //         console.log( 'error: ' + msg );
-    //     });
-    //     window.plugins.NativeAudio.preloadSimple( 'derrota', 'audio/derrota.mp3', function(msg){
-    //     }, function(msg){
-    //         console.log( 'error: ' + msg );
-    //     });
-    //     window.plugins.NativeAudio.preloadSimple( 'fuego', 'audio/fuego.mp3', function(msg){
-    //     }, function(msg){
-    //         console.log( 'error: ' + msg );
-    //     });
-    //     window.plugins.NativeAudio.preloadSimple( 'triunfo', 'audio/triunfo.mp3', function(msg){
-    //     }, function(msg){
-    //         console.log( 'error: ' + msg );
-    //     });
-    //     // window.plugins.NativeAudio.preloadComplex('intro', 'audio/intro.mp3', 1, 1, 0,
-    //     //   function(msg) {
-    //     //     console.log(msg);
-    //     //   }, function(msg) {
-    //     //     console.log('error: ' + msg); // Loading error
-    //     //   });
-    // };
-
   });
 })
 

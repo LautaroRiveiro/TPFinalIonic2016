@@ -20,13 +20,9 @@
 				</button>
 			</div>
 		</div>
-
-			<div class="item item-body">
-				<div style="float: right;"><button class="button button-balanced" ng-click="Enviar()">
-				  Push
-				</button></div>
-			</div>
-
+		<div style="text-align: center; margin: 10px;">	
+			<button class="button button-positive" style="border-radius: 100%;" ng-click="Enviar()"> Push </button>
+		</div>
 		<ion-checkbox ng-model="token.mostrar" style="background-color: #e2d3b6; color: #33577c;">Mostrar token</ion-checkbox>
 		<pre ng-if="token.mostrar" style="background-color: #FFFFFF;">{{token.info | json}}</pre>
   </ion-content>

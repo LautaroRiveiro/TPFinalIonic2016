@@ -1,6 +1,6 @@
 angular.module('batallaNaval.controller', [])
 
-.controller('BatallaNavalCtrl', function($scope, $timeout, datosSesion, $state, sPlugins) {
+.controller('BatallaNavalCtrl', function($scope, $timeout, datosSesion, $state, sPlugins, sNotificaciones) {
   //Creo las variables necesarias
   $scope.partida = {};
   $scope.bandera = {};
@@ -325,6 +325,10 @@ angular.module('batallaNaval.controller', [])
                 creditos: nuevoCredito
               });
               datosSesion.setCreditos(nuevoCredito);
+              firebase.database().ref("/users/"+uidOponente).once('value')
+              .then(function(dataSnapshot) {
+                  sNotificaciones.BatallaDerrota(dataSnapshot.val().registrationId);
+              });
             }
          }
          else{
@@ -338,12 +342,13 @@ angular.module('batallaNaval.controller', [])
               });
 
               var monto = $scope.partida.monto;
-              firebase.database().ref("/users/"+uidOponente+"/creditos").once('value')
+              firebase.database().ref("/users/"+uidOponente).once('value')
               .then(function(dataSnapshot) {
-                var nuevoCredito = parseInt(dataSnapshot.val()) + parseInt(monto)*2;
-                firebase.database().ref("/users/"+uidOponente).update({
-                  creditos: nuevoCredito
-                });
+                  var nuevoCredito = parseInt(dataSnapshot.val().creditos) + parseInt(monto)*2;
+                  sNotificaciones.BatallaTriunfo(dataSnapshot.val().registrationId);
+                  firebase.database().ref("/users/"+uidOponente).update({
+                    creditos: nuevoCredito
+                  });
               });
             }
             else{

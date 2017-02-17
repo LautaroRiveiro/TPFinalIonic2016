@@ -1,6 +1,6 @@
 angular.module('servicios', [])
 
-.service('datosSesion', function ($timeout) {
+.service('datosSesion', function ($timeout, $ionicPlatform) {
     var usuario = {};
 
     //Recupero de la tabla 'users' del firebase los datos del usuario a partir del UID del token
@@ -46,6 +46,37 @@ angular.module('servicios', [])
             usuario[campo] = valor;
           });
         });
+
+        try{
+            var push = PushNotification.init({
+                android: {
+                //Es el mismo SENDER ID de siempre y es el único dato obligatorio en el init.
+                senderID: "359101398196"
+                },
+                ios: {},
+                windows: {}
+            });
+            //Cuando se registra el ID del usuario
+            push.on('registration', function(data) {
+                console.log("registrationId:" + data.registrationId);
+                console.info("push", push);
+                firebase.database().ref('users/'+firebase.auth().currentUser.uid).update({
+                    registrationId: data.registrationId
+                });
+            });
+            //Cuando le llega una notificación al usuario
+            push.on('notification', function(data) {
+                console.log("Nueva notificacion", data);
+            });
+            //Cuando se produce un error
+            push.on('error', function(e) {
+                console.log(e.message);
+            });
+        }
+        catch(error){
+            console.log("La PC no otorga ID de notificaciones.", error);
+        };
+
       } else {
         for (var variableKey in usuario){
             if (usuario.hasOwnProperty(variableKey)){
@@ -54,6 +85,45 @@ angular.module('servicios', [])
         };
       }
     });
+
+
+  $ionicPlatform.ready(function() {
+    //------------------------------------- PUSH NOTIFICATION ----------------------------------------//
+    try{
+        //Configuración inicial cada vez que se inicia la App
+        var push = PushNotification.init({
+          android: {
+            //Es el mismo SENDER ID de siempre y es el único dato obligatorio en el init.
+            senderID: "359101398196"
+          },
+          ios: {},
+          windows: {}
+        });
+
+        //Cuando se registra el ID del usuario
+        push.on('registration', function(data) {
+          console.log("registrationId:" + data.registrationId);
+          console.info("push", push);
+          firebase.database().ref('users/'+firebase.auth().currentUser.uid).update({
+              registrationId: data.registrationId
+          });
+        });
+
+        //Cuando le llega una notificación al usuario
+        push.on('notification', function(data) {
+          console.log("Nueva notificacion", data);
+        });
+
+        //Cuando se produce un error
+        push.on('error', function(e) {
+          console.log(e.message);
+        });
+    }
+    catch(error){
+            console.log("La PC no otorga ID de notificaciones.", error);
+    }
+  });
+
 
     return {
         getUsuario: function () {
@@ -73,6 +143,9 @@ angular.module('servicios', [])
         },
         getUid: function () {
             return firebase.auth().currentUser.uid;
+        },
+        getRegistrationId: function () {
+             return usuario['registrationId'];
         },
         sumarCreditos: function(value) {
             usuario.creditos += parseInt(value);
