@@ -49,31 +49,31 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngCordovaOauth', 'starter.cont
       console.log(e.message);
     });
 
-    //------------------------------------------ AUDIOS ---------------------------------------------//
-    if( window.plugins && window.plugins.NativeAudio ) {
-        window.plugins.NativeAudio.preloadSimple( 'agua', 'audio/agua.mp3', function(msg){
-        }, function(msg){
-            console.log( 'error: ' + msg );
-        });
-        window.plugins.NativeAudio.preloadSimple( 'derrota', 'audio/derrota.mp3', function(msg){
-        }, function(msg){
-            console.log( 'error: ' + msg );
-        });
-        window.plugins.NativeAudio.preloadSimple( 'fuego', 'audio/fuego.mp3', function(msg){
-        }, function(msg){
-            console.log( 'error: ' + msg );
-        });
-        window.plugins.NativeAudio.preloadSimple( 'triunfo', 'audio/triunfo.mp3', function(msg){
-        }, function(msg){
-            console.log( 'error: ' + msg );
-        });
-        // window.plugins.NativeAudio.preloadComplex('intro', 'audio/intro.mp3', 1, 1, 0,
-        //   function(msg) {
-        //     console.log(msg);
-        //   }, function(msg) {
-        //     console.log('error: ' + msg); // Loading error
-        //   });
-    };
+    // //------------------------------------------ AUDIOS ---------------------------------------------//
+    // if( window.plugins && window.plugins.NativeAudio ) {
+    //     window.plugins.NativeAudio.preloadSimple( 'agua', 'audio/agua.mp3', function(msg){
+    //     }, function(msg){
+    //         console.log( 'error: ' + msg );
+    //     });
+    //     window.plugins.NativeAudio.preloadSimple( 'derrota', 'audio/derrota.mp3', function(msg){
+    //     }, function(msg){
+    //         console.log( 'error: ' + msg );
+    //     });
+    //     window.plugins.NativeAudio.preloadSimple( 'fuego', 'audio/fuego.mp3', function(msg){
+    //     }, function(msg){
+    //         console.log( 'error: ' + msg );
+    //     });
+    //     window.plugins.NativeAudio.preloadSimple( 'triunfo', 'audio/triunfo.mp3', function(msg){
+    //     }, function(msg){
+    //         console.log( 'error: ' + msg );
+    //     });
+    //     // window.plugins.NativeAudio.preloadComplex('intro', 'audio/intro.mp3', 1, 1, 0,
+    //     //   function(msg) {
+    //     //     console.log(msg);
+    //     //   }, function(msg) {
+    //     //     console.log('error: ' + msg); // Loading error
+    //     //   });
+    // };
 
   });
 })

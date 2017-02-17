@@ -1,20 +1,20 @@
 <ion-view view-title="Perfil">
   <ion-content style="background: url(img/background-app.jpg) no-repeat center center fixed; background-size: cover;">
-		<div class="list card">
-			<div class="item item-avatar">
-				<img src="img/lautaro.jpg">
-				<h2>{{usuario.nombre}}</h2>
-				<p>Usuario desde: {{usuario.ingreso}}</p>
+		<div class="list card" style="border-radius: 5px;">
+			<div class="item item-avatar" style="background-color: #e2d3b6; color: #33577c;">
+				<!-- <img src="img/lautaro.jpg"> -->
+				<h2 style="color: #33577c;">{{usuario.nombre}}</h2>
+				<p style="color: #33577c;">Usuario desde: {{usuario.ingreso}}</p>
 			</div>
 
-			<div class="item item-body">
-				<h2 style="float: left;">Créditos: {{usuario.creditos}}</h2>
+			<div class="item item-body" style="background-color: #e2d3b6; color: #33577c;">
+				<h2 style="float: left;color: #33577c;">Créditos: {{usuario.creditos}}</h2>
 				<div style="float: right;"><button class="button button-balanced" ng-click="CargarCredito()">
 				  Cargar crédito
 				</button></div>
 			</div>
 			
-			<div class="item item-body" style="text-align: center;">
+			<div class="item item-body" style="text-align: center;background-color: #e2d3b6;">
 				<button class="button button-assertive button-block" ng-click="Logout()">
 				  <i class="ion-power"></i>&nbsp;Salir
 				</button>
@@ -27,7 +27,7 @@
 				</button></div>
 			</div>
 
-		<ion-checkbox ng-model="token.mostrar">Mostrar token</ion-checkbox>
+		<ion-checkbox ng-model="token.mostrar" style="background-color: #e2d3b6; color: #33577c;">Mostrar token</ion-checkbox>
 		<pre ng-if="token.mostrar" style="background-color: #FFFFFF;">{{token.info | json}}</pre>
   </ion-content>
 </ion-view>

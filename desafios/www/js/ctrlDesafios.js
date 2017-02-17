@@ -51,6 +51,7 @@ angular.module('desafios.controller', [])
 
     $scope.Resultado = function(resultado){
         if(resultado == "ganador"){
+            sPlugins.Vibrar([100, 200, 500]);
             sPlugins.Sonido("triunfo");
             
             //GANÉ (ganó el creador)
@@ -73,6 +74,7 @@ angular.module('desafios.controller', [])
             console.info("datosSesion.getUsuario().creditos: ", datosSesion.getUsuario().creditos);
         }
         else{
+            sPlugins.Vibrar([900]);
             sPlugins.Sonido("derrota");
 
             //PERDÍ (ganó el desafiante)

@@ -74,8 +74,13 @@ angular.module('servicioPlugins', [])
 	        }
 		},
 
-		Vibrar: function(){
-
+		Vibrar: function(duracion){
+			try{
+				navigator.vibrate(duracion);
+			}
+			catch(err){
+				console.log("No se puede ejecutar vibración en la PC", err);
+			}
 		}
 	}
 

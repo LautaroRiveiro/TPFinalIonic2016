@@ -257,6 +257,7 @@ angular.module('batallaNaval.controller', [])
             }
             else{*/
               sPlugins.Sonido("fuego");
+              sPlugins.Vibrar([100, 200, 500]);
               alert("ACERTASTE. Esperar por el turno del creador.");
               firebase.database().ref("/partidas/"+$scope.key).update({
                 ganador: firebase.auth().currentUser.uid
@@ -270,6 +271,7 @@ angular.module('batallaNaval.controller', [])
             }
             else{*/
               sPlugins.Sonido("agua");
+              sPlugins.Vibrar(100);
               alert("AGUA");
             //}
          };
@@ -278,6 +280,7 @@ angular.module('batallaNaval.controller', [])
          if($scope.partida.miTurno == $scope.partida.ubicacionDesafiante){ //Yo soy el CREADOR
             sPlugins.Sonido("fuego");
             if($scope.partida.ganador == uidOponente){
+              sPlugins.Vibrar([100, 200, 500]);
               alert("EMPATASTE");
               firebase.database().ref("/partidas/"+$scope.key).update({
                 ganador: "EMPATE",
@@ -309,6 +312,7 @@ angular.module('batallaNaval.controller', [])
               //});
             }
             else{
+              sPlugins.Vibrar([100, 200, 500]);
               alert("GANASTE");
               firebase.database().ref("/partidas/"+$scope.key).update({
                 ganador: firebase.auth().currentUser.uid,
@@ -326,6 +330,7 @@ angular.module('batallaNaval.controller', [])
          else{
             sPlugins.Sonido("agua");
             if($scope.partida.ganador == uidOponente){
+              sPlugins.Vibrar([900]);
               alert("PERDISTE");
               //MUEVO LA PARTIDA A LAS FINALIZADAS Y ENTREGO LOS CREDITOS AL OPONENTE
               firebase.database().ref("/partidas/"+$scope.key).update({
@@ -342,6 +347,7 @@ angular.module('batallaNaval.controller', [])
               });
             }
             else{
+              sPlugins.Vibrar(100);
               alert("AGUA");
             }
          };
