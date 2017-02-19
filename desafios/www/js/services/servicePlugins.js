@@ -25,6 +25,10 @@ angular.module('servicioPlugins', [])
 	        }, function(msg){
 	            console.log( 'error: ' + msg );
 	        });
+	        window.plugins.NativeAudio.preloadSimple( 'ingreso', 'audio/ingreso.mp3', function(msg){
+	        }, function(msg){
+	            console.log( 'error: ' + msg );
+	        });
 	    };
 	});
 

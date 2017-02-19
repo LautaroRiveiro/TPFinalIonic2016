@@ -1,10 +1,14 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, datosSesion) {
+  $scope.EsAdmin = function(){
+    return datosSesion.esAdmin();
+  }
 
 })
 
-.controller('PerfilCtrl', function($scope, $stateParams, $state, $timeout, $ionicHistory, datosSesion, $cordovaBarcodeScanner, $http, sPlugins, sNotificaciones) {
+.controller('PerfilCtrl', function($scope, $rootScope, $stateParams, $state, $timeout, $ionicHistory, datosSesion, $cordovaBarcodeScanner, $http, sPlugins, sNotificaciones) {
+    
     //Recupero los datos del usuario logueado
     $scope.usuario = {}
     $scope.usuario = datosSesion.getUsuario();

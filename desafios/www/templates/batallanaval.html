@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="css/batallaNaval.css">
 <ion-view view-title="Batalla Naval">
   <ion-content style="background: url(img/background-app.jpg) no-repeat center center fixed; background-size: cover;">
   	<div class="item item-balanced item-icon-left item-icon-right" ng-click="NuevaPartida()" ng-show="bandera.estado == 'inicio'">
@@ -12,7 +13,7 @@
       <i class="icon ion-search"></i>
     </div>
 
-    <div class="card" ng-show="bandera.estado == 'inicio'">
+    <div class="card" ng-show="bandera.estado == 'inicio'" style="border-radius: 10px;">
       <div class="item item-divider" style="text-align: center;">
         TU TURNO
       </div>
@@ -27,7 +28,7 @@
       </div>
     </div>
 
-    <div class="card" ng-show="bandera.estado == 'inicio'">
+    <div class="card" ng-show="bandera.estado == 'inicio'" style="border-radius: 10px;">
       <div class="item item-divider" style="text-align: center;">
         ESPERANDO AL OPONENTE
       </div>
@@ -42,7 +43,7 @@
       </div>
     </div>
 
-    <div class="card" ng-show="bandera.estado == 'inicio'">
+    <div class="card" ng-show="bandera.estado == 'inicio'" style="border-radius: 10px;">
       <div class="item item-divider" style="text-align: center;">
         SIN OPONENTE
       </div>
@@ -73,7 +74,30 @@
       <div class="item item-divider" style="text-align: center;">
         Elegir ubicación del crédito
       </div>
-      <div class="row" style="width:50%; text-align: center; margin: auto;">
+
+      <div class="row" style="width:90%; text-align: center; margin: auto;">
+        <div class="col">
+            <input type="radio" id="cb1" name="ubicacion" value="1" ng-model="partida.ubicacionCreador"/>
+            <label class="radiolabel" for="cb1"><img ng-src="img/ubicacion.jpg" class="barco"/></label>
+        </div>
+        <div class="col">
+            <input type="radio" id="cb2" name="ubicacion" value="2" ng-model="partida.ubicacionCreador"/>
+            <label class="radiolabel" for="cb2"><img ng-src="img/ubicacion.jpg" class="barco"/></label>
+        </div>
+      </div>
+      <div class="row" style="width:90%; text-align: center; margin: auto;">
+        <div class="col">
+            <input type="radio" id="cb3" name="ubicacion" value="3" ng-model="partida.ubicacionCreador"/>
+            <label class="radiolabel" for="cb3"><img ng-src="img/ubicacion.jpg" class="barco"/></label>
+        </div>
+        <div class="col">
+            <input type="radio" id="cb4" name="ubicacion" value="4" ng-model="partida.ubicacionCreador"/>
+            <label class="radiolabel" for="cb4"><img ng-src="img/ubicacion.jpg" class="barco"/></label>
+        </div>
+      </div>
+
+
+<!--       <div class="row" style="width:50%; text-align: center; margin: auto;">
         <div class="col">
           <input type="radio" class="button button-assertive" name="ubicacion" ng-model="partida.ubicacionCreador" value="1">
         </div>
@@ -88,7 +112,8 @@
         <div class="col">
           <input type="radio" class="button button-assertive" name="ubicacion" ng-model="partida.ubicacionCreador" value="4">
         </div>
-      </div>
+      </div> -->
+
 
       <div class="item item-divider" style="text-align: center;">
         Elegir monto de la partida
@@ -117,7 +142,31 @@
       <div class="item item-divider" style="text-align: center;">
         Elegir ubicación del crédito
       </div>
-      <div class="row" style="width:50%; text-align: center; margin: auto;">
+
+
+      <div class="row" style="width:90%; text-align: center; margin: auto;">
+        <div class="col">
+            <input type="radio" id="ub1" name="ubicacionDesafiante" value="1" ng-model="partida.ubicacionDesafiante"/>
+            <label class="radiolabel" for="ub1"><img ng-src="img/ubicacion.jpg" class="barco"/></label>
+        </div>
+        <div class="col">
+            <input type="radio" id="ub2" name="ubicacionDesafiante" value="2" ng-model="partida.ubicacionDesafiante"/>
+            <label class="radiolabel" for="ub2"><img ng-src="img/ubicacion.jpg" class="barco"/></label>
+        </div>
+      </div>
+      <div class="row" style="width:90%; text-align: center; margin: auto;">
+        <div class="col">
+            <input type="radio" id="ub3" name="ubicacionDesafiante" value="3" ng-model="partida.ubicacionDesafiante"/>
+            <label class="radiolabel" for="ub3"><img ng-src="img/ubicacion.jpg" class="barco"/></label>
+        </div>
+        <div class="col">
+            <input type="radio" id="ub4" name="ubicacionDesafiante" value="4" ng-model="partida.ubicacionDesafiante"/>
+            <label class="radiolabel" for="ub4"><img ng-src="img/ubicacion.jpg" class="barco"/></label>
+        </div>
+      </div>
+
+
+<!--       <div class="row" style="width:50%; text-align: center; margin: auto;">
         <div class="col">
           <input type="radio" class="button button-assertive" name="ubicacionDesafiante" ng-model="partida.ubicacionDesafiante" value="1">
         </div>
@@ -132,7 +181,8 @@
         <div class="col">
           <input type="radio" class="button button-assertive" name="ubicacionDesafiante" ng-model="partida.ubicacionDesafiante" value="4">
         </div>
-      </div>
+      </div> -->
+
       <div class="item item-divider" style="text-align: center;">
         Aceptar partida
       </div>
@@ -146,6 +196,31 @@
       <div class="item item-divider" style="text-align: center;">
         Elegir ubicación
       </div>
+
+
+      <div class="row" style="width:90%; text-align: center; margin: auto;">
+        <div class="col">
+            <input type="radio" id="bo1" name="ubicacionDesafiante" value="1" ng-model="partida.miTurno" ng-disabled="mostrarRadio._1"/>
+            <label class="radiolabel" for="bo1"><img ng-disabled="mostrarRadio._1" ng-src="img/ubicacion.jpg" class="bomba"/></label>
+        </div>
+        <div class="col">
+            <input type="radio" id="bo2" name="ubicacionDesafiante" value="2" ng-model="partida.miTurno" ng-disabled="mostrarRadio._2"/>
+            <label class="radiolabel" for="bo2"><img ng-disabled="mostrarRadio._2" ng-src="img/ubicacion.jpg" class="bomba"/></label>
+        </div>
+      </div>
+      <div class="row" style="width:90%; text-align: center; margin: auto;">
+        <div class="col">
+            <input type="radio" id="bo3" name="ubicacionDesafiante" value="3" ng-model="partida.miTurno" ng-disabled="mostrarRadio._3"/>
+            <label class="radiolabel" for="bo3"><img ng-disabled="mostrarRadio._3" ng-src="img/ubicacion.jpg" class="bomba"/></label>
+        </div>
+        <div class="col">
+            <input type="radio" id="bo4" name="ubicacionDesafiante" value="4" ng-model="partida.miTurno" ng-disabled="mostrarRadio._4"/>
+            <label class="radiolabel" for="bo4"><img ng-disabled="mostrarRadio._4" ng-src="img/ubicacion.jpg" class="bomba"/></label>
+        </div>
+      </div>
+
+
+<!-- 
       <div class="row" style="width:50%; text-align: center; margin: auto;">
         <div class="col">
           <input type="radio" class="button button-assertive" name="ubicacionDesafiante" ng-model="partida.miTurno" value="1" ng-disabled="mostrarRadio._1">
@@ -161,7 +236,7 @@
         <div class="col">
           <input type="radio" class="button button-assertive" name="ubicacionDesafiante" ng-model="partida.miTurno" value="4" ng-disabled="mostrarRadio._4">
         </div>
-      </div>
+      </div> -->
       <div class="item item-divider" style="text-align: center;">
         Aceptar jugada
       </div>

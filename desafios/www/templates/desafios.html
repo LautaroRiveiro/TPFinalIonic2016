@@ -15,7 +15,7 @@
       <i class="icon ion-search"></i>
     </div>
 
-    <div class="card" ng-show="bandera.estado == 'inicio'">
+    <div class="card" ng-show="bandera.estado == 'inicio'" style="border-radius: 10px;">
       <div class="item item-divider" style="text-align: center;">
         ESPERANDO TU RESPUESTA
       </div>
@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <div class="card" ng-show="bandera.estado == 'inicio'">
+    <div class="card" ng-show="bandera.estado == 'inicio'" style="border-radius: 10px;">
       <div class="item item-divider" style="text-align: center;">
         SIN OPONENTE
       </div>
@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <div class="card" ng-show="bandera.estado == 'inicio'">
+    <div class="card" ng-show="bandera.estado == 'inicio'" style="border-radius: 10px;">
       <div class="item item-divider" style="text-align: center;">
         ESPERANDO RESPUESTA DEL OPONENTE
       </div>
@@ -81,7 +81,8 @@
         Escribir desafío
       </div>
       
-      <input type="text" placeholder="escribir acá" ng-model="desafio.texto">
+      <!-- <input type="text" placeholder="escribir acá" ng-model="desafio.texto"> -->
+      <textarea rows="4" cols="50" maxlength="150" placeholder="Escribir acá" ng-model="desafio.texto" style="min-width: 100%; min-height: 20px;resize: none;"></textarea>
 
       <div class="item item-divider" style="text-align: center;">
         Elegir monto a apostar

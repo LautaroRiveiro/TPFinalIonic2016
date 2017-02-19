@@ -152,6 +152,15 @@ angular.module('servicios', [])
             ref.child(firebase.auth().currentUser.uid).update({
                 creditos: usuario.creditos
             });
+        },
+        esAdmin: function(){
+            if (usuario.administrador == null || usuario.administrador == undefined){
+                return false;
+            }
+            if (usuario.administrador) {
+                return true;
+            }
+            return false;
         }
     };
 });

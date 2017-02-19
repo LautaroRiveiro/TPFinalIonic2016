@@ -1,0 +1,64 @@
+input[type="radio"] {
+  display: none;
+}
+
+.radiolabel {
+  /*border: 1px solid #fff;*/
+  /*padding: 10px;*/
+  display: block;
+  position: relative;
+  /*margin: 10px;*/
+  cursor: pointer;
+}
+
+.radiolabel:before {
+  background-color: white;
+  color: white;
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  border: 1px solid grey;
+  position: absolute;
+  /*top: -5px;*/
+  left: -5px;
+  width: 20%;
+  /*height: 12%;*/
+  text-align: center;
+  line-height: 28px;
+  transition-duration: 0.4s;
+  transform: scale(0);
+}
+
+.radiolabel img {
+  /*height: 25%;*/
+  width: 80%;
+  transition-duration: 0.2s;
+  transform-origin: 50% 50%;
+  border: 1px solid #000;
+}
+
+:checked + .radiolabel {
+  border-color: #ddd;
+}
+
+:checked + .radiolabel img[class="barco"] {
+  content:url("../img/ubicacion-elegida.png");
+}
+
+:checked + .radiolabel img[class="bomba"] {
+  content:url("../img/bomba.png");
+}
+
+:checked + .radiolabel img {
+  box-shadow: 0 0 5px #333;
+  z-index: -1;
+  background: url("../img/ubicacion.jpg") no-repeat;
+  background-size: 100% 100%;
+}
+
+:disabled + .radiolabel img{
+  content:url("../img/bomba.png");
+  opacity: 0.5;
+  background: url("../img/ubicacion.jpg") no-repeat;
+  background-size: 100% 100%;
+}

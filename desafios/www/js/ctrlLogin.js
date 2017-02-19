@@ -49,6 +49,7 @@ angular.module('login.controller', [])
               ref.child(respuesta.uid).update({ingreso: Firebase.ServerValue.TIMESTAMP});
               console.info("Bienvenido", respuesta);
               sPlugins.PararMusica("intro");
+              sPlugins.Sonido("ingreso");
               $state.go("app.perfil");
             }
           }, 1000);
@@ -96,6 +97,7 @@ angular.module('login.controller', [])
             console.info("Bienvenido", respuesta);
             //Podría redirigir a otro state
             sPlugins.PararMusica("intro");
+            sPlugins.Sonido("ingreso");
             $state.go("app.perfil");
             //O también cambiar 'estado' para mostrar otra parte de código HTML en este mismo template
             //$scope.estado = 'logueado';
@@ -221,6 +223,7 @@ angular.module('login.controller', [])
                     //SE LOGUEÓ
                     console.info("Bienvenido", respuesta);
                     sPlugins.PararMusica("intro");
+                    sPlugins.Sonido("ingreso");
                     $state.go("app.perfil");
                   }
                   else{
