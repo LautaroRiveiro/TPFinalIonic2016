@@ -78,6 +78,16 @@ angular.module('desafios.controller', [])
             console.info("monto: ", monto);
             console.info("nuevoCredito: ", nuevoCredito);
             console.info("datosSesion.getUsuario().creditos: ", datosSesion.getUsuario().creditos);
+
+            //Envío notificación de derrota al oponente
+            firebase.database().ref('notificaciones').push({
+                notificado: false,
+                texto: "Perdiste un desafío",
+                desafioId: $scope.key,
+                creditos: $scope.desafio.monto,
+                usuarioUid: $scope.desafio.desafianteUid,
+                fecha: Firebase.ServerValue.TIMESTAMP
+            });
         }
         else{
             sPlugins.Vibrar([900]);
@@ -105,6 +115,16 @@ angular.module('desafios.controller', [])
                 firebase.database().ref("/users/"+uidOponente).update({
                   creditos: nuevoCredito
                 });
+            });
+
+            //Envío notificación de victoria al oponente
+            firebase.database().ref('notificaciones').push({
+                notificado: false,
+                texto: "Ganaste un desafío",
+                desafioId: $scope.key,
+                creditos: $scope.desafio.monto,
+                usuarioUid: $scope.desafio.desafianteUid,
+                fecha: Firebase.ServerValue.TIMESTAMP
             });
         }
         $scope.VolverAlInicio();

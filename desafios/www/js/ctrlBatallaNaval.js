@@ -306,6 +306,16 @@ angular.module('batallaNaval.controller', [])
                 });
               });
 
+              //Envío notificación de empate al oponente
+              firebase.database().ref('notificaciones').push({
+                  notificado: false,
+                  texto: "Empataste una batalla",
+                  desafioId: $scope.key,
+                  creditos: monto,
+                  usuarioUid: uidOponente,
+                  fecha: Firebase.ServerValue.TIMESTAMP
+              });
+
               //creditos = firebase.database().ref("/users/"+uidOponente+"/creditos").val() + $scope.partida.monto;
               //firebase.database().ref("/users/"+uidOponente).update({
               //  creditos: nuevoCredito
@@ -329,6 +339,16 @@ angular.module('batallaNaval.controller', [])
               .then(function(dataSnapshot) {
                   sNotificaciones.BatallaDerrota(dataSnapshot.val().registrationId);
               });
+
+              //Envío notificación de derrota al oponente
+              firebase.database().ref('notificaciones').push({
+                  notificado: false,
+                  texto: "Perdiste una batalla",
+                  desafioId: $scope.key,
+                  creditos: monto,
+                  usuarioUid: uidOponente,
+                  fecha: Firebase.ServerValue.TIMESTAMP
+              });
             }
          }
          else{
@@ -349,6 +369,16 @@ angular.module('batallaNaval.controller', [])
                   firebase.database().ref("/users/"+uidOponente).update({
                     creditos: nuevoCredito
                   });
+              });
+
+              //Envío notificación de victoria al oponente
+              firebase.database().ref('notificaciones').push({
+                  notificado: false,
+                  texto: "Ganaste una batalla",
+                  desafioId: $scope.key,
+                  creditos: monto,
+                  usuarioUid: uidOponente,
+                  fecha: Firebase.ServerValue.TIMESTAMP
               });
             }
             else{

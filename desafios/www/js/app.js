@@ -15,7 +15,8 @@ angular.module('starter', [
   'servicios', 
   'servicioPlugins', 
   'servicioNotificaciones', 
-  'servicioDesafios'])
+  'servicioDesafios', 
+  'servicioMensajes'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -73,12 +74,12 @@ angular.module('starter', [
     }
   })
 
-  .state('app.single', {
-    url: '/partida/:playlistId',
+  .state('app.notificaciones', {
+    url: '/notificaciones',
     views: {
       'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+        templateUrl: 'templates/notificaciones.html',
+        controller: 'NotificacionesCtrl'
       }
     }
   })

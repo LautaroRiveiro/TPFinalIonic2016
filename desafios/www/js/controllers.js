@@ -4,7 +4,6 @@ angular.module('starter.controllers', [])
   $scope.EsAdmin = function(){
     return datosSesion.esAdmin();
   }
-
 })
 
 .controller('PerfilCtrl', function($scope, $rootScope, $stateParams, $state, $timeout, $ionicHistory, datosSesion, $cordovaBarcodeScanner, $http, sPlugins, sNotificaciones) {
@@ -88,15 +87,17 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('DesafiosCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
+.controller('NotificacionesCtrl', function($scope, datosSesion, $timeout, servicioMensajes) {
+    
+    $scope.notificaciones = {};
+    $scope.notificaciones = servicioMensajes.getNotificaciones();
+
+    $scope.Eliminar = function(key){
+        servicioMensajes.updateNotificacion(key,{
+            notificado: true
+        });
+    };
+
 })
 
 .controller('GenerarCtrl', function($scope, $stateParams, datosSesion) {

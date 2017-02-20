@@ -1,0 +1,13 @@
+<ion-view view-title="Notificaciones">
+  <ion-content style="background: url(img/background-app.jpg) no-repeat center center fixed; background-size: cover;">
+
+    <ion-list>
+      <ion-item class="item item-button-right" ng-repeat="(key, notificacion) in notificaciones">
+        <button class="button button-clear icon ion-minus-circled assertive" style="color: crimson;" ng-click="Eliminar(key)" style="vertical-align: middle;"></button>
+        <h2>{{notificacion.texto}} ({{notificacion.creditos}} créditos)</h2>
+        <p>Fecha: {{notificacion.fecha}}</p>
+      </ion-item>
+    </ion-list>
+
+  </ion-content>
+</ion-view>
