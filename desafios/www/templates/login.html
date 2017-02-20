@@ -65,7 +65,7 @@
     <p style="text-align: center;" ng-if="estado.estado == 'login'"><a href="#" ng-click="ResetearClave()"><strong>Olvidé la contraseña</strong></a> | <a href="#"  ng-click="HabilitarRegistro()"><strong>Registrarse</strong></a></p>
   
     <br> -->
-    <div class="button-bar" style="position: fixed; bottom: 0;" ng-if="estado.estado == 'login'">
+    <div class="button-bar" style="bottom: 0;" ng-if="estado.estado == 'login'">
     <button class="button button-assertive" ng-click="Test('usuario')"><i class="ion-person-stalker"></i>&nbsp;Test Usuario</button>
     <button class="button button-assertive" ng-click="Test('admin')"><i class="ion-person-add"></i>&nbsp;Test Admin</button>
     </div>

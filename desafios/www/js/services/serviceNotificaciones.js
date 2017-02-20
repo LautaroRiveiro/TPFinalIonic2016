@@ -27,7 +27,8 @@ angular.module('servicioNotificaciones', [])
 			        "notification":{
 			            "title":"Felicitaciones!!",
 			            "body":"Has ganado un desafío",
-			            "sound":"notificacion.mp3",
+			            //"sound":"notificacion.mp3",
+			            "sound":"default",
 			            "click_action":"FCM_PLUGIN_ACTIVITY", //Must be present for Android
 			            "icon":"fcm_push_icon" //White icon Android resource
 			        },
@@ -67,7 +68,8 @@ angular.module('servicioNotificaciones', [])
 			        "notification":{
 			            "title":"Felicitaciones!!",
 			            "body":"Has ganado una batalla",
-			            "sound":"ao.wav",
+			            //"sound":"ao.wav",
+			            "sound":"default",
 			            "click_action":"FCM_PLUGIN_ACTIVITY", //Must be present for Android
 			            "icon":"fcm_push_icon" //White icon Android resource
 			        },
