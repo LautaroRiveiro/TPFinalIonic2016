@@ -1,4 +1,7 @@
 # TPFinalIonic2016
+
+
+<h2 style="color: #2e6c80; text-align: center;"><span style="text-decoration: underline;">Aplicaci&oacute;n Ionic - Desaf&iacute;os</span></h2>
 Juego online: Generador de desafíos / Batalla naval
 
 [-] Login con GitHub
@@ -6,11 +9,6 @@ Juego online: Generador de desafíos / Batalla naval
 [-] Batalla naval
 [-] Generar desafíos
 
-<hr/>
-
-<h1 style="color: #5e9ca0; text-align: center;"><span style="text-decoration: underline;">PPS - Final</span></h1>
-<h2 style="color: #2e6c80; text-align: center;"><span style="text-decoration: underline;">Aplicaci&oacute;n Ionic - Desaf&iacute;os</span></h2>
-<h2 style="color: #2e6c80;">&nbsp;</h2>
 <h2 style="color: #2e6c80;">Datos Personales:</h2>
 <p style="font-size: 14px;"><strong>Autor:</strong> Lautaro Riveiro</p>
 <p style="font-size: 14px;"><strong>Curso:</strong> 4&ordm; A</p>
